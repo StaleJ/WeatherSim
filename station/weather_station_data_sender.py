@@ -1,5 +1,5 @@
 '''
-	Simple udp socket that sendst the data from the weather station to localhost
+	Simple udp socket that sends the data from the weather station to localhost
 '''
 import socket
 import sys
