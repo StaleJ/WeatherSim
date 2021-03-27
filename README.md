@@ -1,6 +1,6 @@
 <h4 align="center">
   <img alt="CloudyWeather" 
-       src="cloud.png">
+       src="img/cloud.png">
 </h4>
 
 **Welcome to the WeatherSim!** \
@@ -37,7 +37,7 @@ Data will be periodically genereated from `Station.py` which is called by
 WeatherBaseClient. This data is then forwarded by UDP to Server.py` which stores this data.
 
 <h4 align="center">
-  <img alt="WeatherModel" src="model1.png">
+  <img alt="WeatherModel" src="img/model1.png">
 </h4>
 
 Using the commandline from `client.py` you can retrieve various form of data from the server `server.py`.
