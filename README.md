@@ -37,7 +37,7 @@ Data will be periodically genereated from `Simulation.py` which is called by
 WeatherBaseClient. This data is then forwarded by UDP to `WeatherServer.py` which stores this data.
 
 <h4 align="center">
-  <img alt="WeatherModel" src="Model1.png">
+  <img alt="WeatherModel" src="model1.png">
 </h4>
 
 Using the client `WeatherClient.py` you can retrieve information from the server `WeatherServer.py`
