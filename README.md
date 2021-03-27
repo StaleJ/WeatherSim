@@ -1,5 +1,8 @@
 <h4 align="center">
-  <img alt="CloudyWeather" src="cloud.png">
+  <img alt="CloudyWeather" 
+       src="cloud.png" 
+       width="2588"
+       height="1846">
 </h4>
 
 ***Welcome to the WeatherSimAPI!*** This program will simulate a weather database and
