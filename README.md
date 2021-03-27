@@ -57,7 +57,7 @@ Students: \
 [`Henrik Eide`](https://github.com/HenrikEide) 
 
 TI's: \
-[`Lenanomous`](https://github.com/) \
+[`Lenanomous`](https://github.com/daq012) \
 [`Sedrick Varnes`](https://github.com/sedrickvarnes)
 
 
