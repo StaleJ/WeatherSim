@@ -1,6 +1,6 @@
 <h4 align="center">
   <img alt="CloudyWeather" 
-       src="cloud.png"
+       src="cloud.png">
 </h4>
 
 ***Welcome to the WeatherSimAPI!*** This program will simulate a weather database and
