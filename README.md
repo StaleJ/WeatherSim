@@ -51,10 +51,10 @@ Using the client `WeatherClient.py` you can retrieve information from the server
 ## Participants: 
 
 Students: \
-[`Ståle Jacobsen`](https://github.com/noffle/) \
+[`Ståle Jacobsen`](https://github.com/StaleJ) \
 [`Erlend Haugen`](https://github.com/HaugPixel) \
 [`Kim Andre Grønstøl`](https://github.com/KimAndreG) \
-[`Martin Friedle`](https://github.com/noffle/twitter-kv) \
+[`Martin Friedle`](https://github.com/mrtineide) \
 [`Henrik Eide`](https://github.com/HenrikEide) 
 
 TI's: \
