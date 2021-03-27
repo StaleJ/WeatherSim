@@ -48,7 +48,7 @@ Using the client `WeatherClient.py` you can retrieve information from the server
 
    
 
-###Participants: 
+### Participants: 
 
 Students: \
 [`Ståle Jacobsen`](https://github.com/noffle/) \
@@ -62,5 +62,5 @@ TI's: \
 [`Sedrick Varnes`](https://github.com/sedrickvarnes)
 
 
-###CopyRight
+### CopyRight
 <a href='https://pngtree.com/so/cartoon'>cartoon png from pngtree.com</a>
