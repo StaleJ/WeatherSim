@@ -3,7 +3,7 @@
        src="cloud.png">
 </h4>
 
-***Welcome to the WeatherSim!*** \
+**Welcome to the WeatherSim!** \
 This program will simulate a weather database and
 server in which for you to retrieve data from. Our main goal is to
  demonstrate basic socket programming with **UDP** and **TCP**.
@@ -46,9 +46,9 @@ Using the client `WeatherClient.py` you can retrieve information from the server
 
 `DataStorage.txt` will eventually get very big, limiting the whole goddamn operation`.
 
-   
+---   
 
-### Participants: 
+## Participants: 
 
 Students: \
 [`Ståle Jacobsen`](https://github.com/noffle/) \
