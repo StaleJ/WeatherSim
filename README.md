@@ -33,15 +33,14 @@ To see all data since simulation start, type
 
 ## About
 
-Data will be periodically genereated from `Simulation.py` which is called by
-WeatherBaseClient. This data is then forwarded by UDP to `WeatherServer.py` which stores this data.
+Data will be periodically genereated from `Station.py` which is called by
+WeatherBaseClient. This data is then forwarded by UDP to Server.py` which stores this data.
 
 <h4 align="center">
   <img alt="WeatherModel" src="model1.png">
 </h4>
 
-Using the client `WeatherClient.py` you can retrieve information from the server `WeatherServer.py`
-
+Using the commandline from `client.py` you can retrieve various form of data from the server `server.py`.
 ## Known bugs
 
 `DataStorage.txt` will eventually get very big, limiting the whole goddamn operation`.
