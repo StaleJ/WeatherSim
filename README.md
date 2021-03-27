@@ -3,7 +3,8 @@
        src="cloud.png">
 </h4>
 
-***Welcome to the WeatherSimAPI!*** This program will simulate a weather database and
+***Welcome to the WeatherSim!*** \
+This program will simulate a weather database and
 server in which for you to retrieve data from. Our main goal is to
  demonstrate basic socket programming with **UDP** and **TCP**.
 
