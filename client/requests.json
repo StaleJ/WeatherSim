@@ -1,0 +1,4 @@
+{
+  "get data -all": "Returns all data in database",
+  "help": "To read get requests descriptions type: help <request>"
+}

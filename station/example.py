@@ -15,10 +15,9 @@ if __name__ == "__main__":
 
     # Capture data for 72 hours
     # Note that the simulation interval is 1 second
-    for _ in range(72):
+    for _ in range(3600):
         # Sleep for 1 second to wait for new weather data
         # to be simulated
-        sleep(1)
         # Read new weather data and append it to the
         # corresponding list
         temperature.append(bergen_station.temperature)

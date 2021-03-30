@@ -7,20 +7,35 @@
 
 import socket
 import json
+from io import StringIO
 
 HOST = "127.0.0.1"
 PORT = 5009
 
 
-def request_to_server(sock: socket, command: str) -> str:
-    sock.sendall(command.encode())
+def request_to_server(request: str) -> str:
+    sock.sendall(request.encode())
     resp = sock.recv(1024)
     return resp.decode()
 
 
-def close_socket(sock: socket) -> None:
-    print("test")
+def close_socket(request: str) -> None:  # Redundant?
+    sock.sendall(request.encode())
     sock.close()
+    print("server closed")
+
+
+def get_all_data(request: str) -> None:
+    all_data = json.loads(request_to_server(request))  # loads converts str -> dict
+    print(all_data)
+
+
+def get_help(request: str) -> None: # TODO : Fix this to get_json
+    _help = json.loads(request_to_server(request))
+    _io = StringIO(_help)
+    _dict = json.load(_io)
+    for k, v in _dict.items():
+        print(f'Request: {k}. \nDescription: {v}\n')
 
 
 if __name__ == '__main__':
@@ -32,14 +47,16 @@ if __name__ == '__main__':
     print("Press Enter to exit")
     while (command := input("WAclient> ")).lower():
         if command == "get data -all":
-            test = json.loads(request_to_server(sock, command))
-            print(test)
-            type(test)
+            get_all_data(command)
         elif command == "ping":
-            ping = request_to_server(sock, command)
+            ping = request_to_server(command)
             print(ping)
+        elif command == "help":
+            get_help(command)
+        elif command == "close":
+            close_socket(command)
         else:
             print("Invalid command")
 
 # TODO : create help -> show possible commands
-# TODO: get data -all command
+# TODO: get data -all command: do more testing
