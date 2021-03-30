@@ -1,5 +1,13 @@
 from socket import socket
 import json
+import unittest
+
+def get_all_data():
+    with open("temp_data.json", "r") as file:
+        data = json.dumps(file.read())
+    file.close()
+    return data
+
 
 if __name__ == '__main__':
     sock = socket()
@@ -10,17 +18,18 @@ if __name__ == '__main__':
         conn, _ = sock.accept()
         while True:
             request_message = conn.recv(1024)
-            if not request_message:
+            request_message_decoded = request_message.decode()
+            print(request_message.decode())
+            if not request_message_decoded:
                 conn.close()
                 break
-            conn.sendall("pong".encode())
-
-
-def get_all_data():
-    with open("temp_data.json", "r") as file:
-        data = json.load(file)
-    file.close()
-    return data
+            elif request_message_decoded == "get data -all":
+                all_data = get_all_data()
+                conn.send(all_data.encode())
+            elif request_message_decoded == "ping":
+                conn.sendall("pong".encode())
 
 
 print(get_all_data())
+
+

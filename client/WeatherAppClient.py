@@ -6,7 +6,7 @@
 # TODO: Decode data from server.
 
 import socket
-import sys
+import json
 
 HOST = "127.0.0.1"
 PORT = 5009
@@ -30,9 +30,16 @@ if __name__ == '__main__':
     sock.connect(sock_address)
 
     print("Press Enter to exit")
-    while(command := input("command> ")).lower():
-        if command == "ping":
-            test = request_to_server(sock, command)
+    while (command := input("WAclient> ")).lower():
+        if command == "get data -all":
+            test = json.loads(request_to_server(sock, command))
             print(test)
+            type(test)
+        elif command == "ping":
+            ping = request_to_server(sock, command)
+            print(ping)
         else:
             print("Invalid command")
+
+# TODO : create help -> show possible commands
+# TODO: get data -all command
