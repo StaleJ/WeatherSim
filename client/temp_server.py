@@ -1,6 +1,17 @@
 import socket
 import json
 
+city = ["Bergen", "Oslo"]
+
+
+def response(request: str) -> str:
+    global city
+
+    input_ = request.split()
+    method = input_[0] + input_[1] if len(input_) > 1 else None
+    if method == "getplace":
+        return ";".join(city).encode()
+
 
 def get_all_data():
     with open("temp_data.json", "r") as file:
@@ -40,5 +51,7 @@ if __name__ == '__main__':
             elif request_message == "help":
                 help_request = get_help_client()
                 conn.send(help_request.encode())
+            elif request_message == "get place":
+                conn.sendall(response(request_message))
             elif request_message == "close":
                 close()

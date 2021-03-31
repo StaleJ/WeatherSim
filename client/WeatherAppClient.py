@@ -4,7 +4,7 @@
 # TODO: Make mock data
 # TODO: Format data
 # TODO: Decode data from server.
-
+import math
 import socket
 import json
 from io import StringIO
@@ -30,33 +30,62 @@ def get_all_data(request: str) -> None:
     print(all_data)
 
 
-def get_help(request: str) -> None: # TODO : Fix this to get_json
+def get_places() -> None:
+    places = request_to_server("get place").split(";")
+    print("Available places:")
+    for p in places:
+        print(p)
+    while (p := input("places> ")) not in places:  # TODO : Kanskje gjøre dette på en bedre måte
+        print(f"Place {p} is not available")
+    request_to_server(f"get data {p}")
+
+
+def get_help(request: str) -> None:  # TODO : Fix this to get_json
     _help = json.loads(request_to_server(request))
     _io = StringIO(_help)
     _dict = json.load(_io)
-    for k, v in _dict.items():
-        print(f'Request: {k}. \nDescription: {v}\n')
+    longest_description = 0
+    for value in _dict.values():
+        if len(value) > longest_description:
+            longest_description = len(value)
 
+    help_headder = "All Commands!"
+    rest = longest_description + 13 - len(help_headder)
+    print("-" * math.floor(rest / 2) + help_headder + "-" * math.ceil(rest / 2) + "\n" + "|" + " " * (
+                longest_description + 14) + "|")
+    for k, v in _dict.items():
+        print(f'|  Request: {k}.' + " " * (longest_description + 3) + "|" + f'\n|  Description: {v}' '|\n|' + " " * (
+                    longest_description + 14) + "|")
+        print("-" * (longest_description + 13) + "\n")
+
+
+# Forslag til get: get data <day>, get data <month> ? noe mer? rain and temp
+# get data <place>
 
 if __name__ == '__main__':
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock_address = (HOST, PORT)
-    sock.connect(sock_address)
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock_address = (HOST, PORT)
+        sock.connect(sock_address)
+        print("Press Enter to exit")
+        while (command := input("WAclient> ")).lower():
+            if command == "get data -all":
+                get_all_data(command)
+            elif command == "ping":
+                ping = request_to_server(command)
+                print(ping)
+            elif command == "help":
+                get_help(command)
+            elif command == "close":
+                close_socket(command)
+            elif command == "get place":
+                get_places()
+            else:
+                print("Invalid command")
 
-    print("Press Enter to exit")
-    while (command := input("WAclient> ")).lower():
-        if command == "get data -all":
-            get_all_data(command)
-        elif command == "ping":
-            ping = request_to_server(command)
-            print(ping)
-        elif command == "help":
-            get_help(command)
-        elif command == "close":
-            close_socket(command)
-        else:
-            print("Invalid command")
+    except OSError as error:
+        print(f"Cant connect to the server!\nOSError : {error}")
 
 # TODO : create help -> show possible commands
 # TODO: get data -all command: do more testing

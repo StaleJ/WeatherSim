@@ -1,4 +1,11 @@
 {
   "get data -all": "Returns all data in database",
-  "help": "To read get requests descriptions type: help <request>"
+  "help": "To read get requests descriptions type: help <request>",
+  "close": "Close down server",
+  "get data <day>": "Returns all data from that day",
+  "get data <place>": "Returns all data from that place",
+  "get data <month>": "Returns all data from that month",
+  "get data rain": "Returns all places where it's raining",
+  "get data temp": "Returns the temperature at all places",
+  "get place": "Returns all the places in the database"
 }
