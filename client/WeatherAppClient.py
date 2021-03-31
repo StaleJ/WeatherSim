@@ -45,18 +45,22 @@ def get_help(request: str) -> None:  # TODO : Fix this to get_json
     _io = StringIO(_help)
     _dict = json.load(_io)
     longest_description = 0
-    for value in _dict.values():
+    longest_key = 0
+    for key, value in _dict.items:
         if len(value) > longest_description:
             longest_description = len(value)
+        if len(key) > longest_key:
+            longest_key = len(value)
 
-    help_headder = "All Commands!"
-    rest = longest_description + 13 - len(help_headder)
-    print("-" * math.floor(rest / 2) + help_headder + "-" * math.ceil(rest / 2) + "\n" + "|" + " " * (
-                longest_description + 14) + "|")
+    longest_description += 13
+    longest_key += 9
+    help_header = "All Commands!"
+    rest = longest_description - len(help_header)
+    print("-" * (math.floor(rest / 2)+3) + help_header + "-" * (math.ceil(rest / 2)+3) + "\n" + "|" + " " * (longest_description + 4) + "|")
     for k, v in _dict.items():
-        print(f'|  Request: {k}.' + " " * (longest_description + 3) + "|" + f'\n|  Description: {v}' '|\n|' + " " * (
-                    longest_description + 14) + "|")
-        print("-" * (longest_description + 13) + "\n")
+        print(f'|  Request: {k}' + " " * (longest_description-longest_key) + "  |" + f'\n|  Description: {v}'+ " "*(longest_description-13) + '  |\n|  ' + " " * (
+                    longest_description) + "  |")
+        print("-" * (longest_description + 6) + "\n")
 
 
 # Forslag til get: get data <day>, get data <month> ? noe mer? rain and temp
