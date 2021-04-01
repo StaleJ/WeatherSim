@@ -6,11 +6,8 @@ city = ["Bergen", "Oslo"]
 
 def response(request: str) -> str:
     global city
-
-    input_ = request.split()
-    method = input_[0] + input_[1] if len(input_) > 1 else None
-    if method == "getplace":
-        return ";".join(city).encode()
+    if request == "getplace":
+        return ";".join(city).lower().encode()
 
 
 def get_all_data():
@@ -43,7 +40,7 @@ if __name__ == '__main__':
         conn, _ = sock.accept()
         while request_message := conn.recv(1024).decode():
             print(request_message)  # prints request from client
-            if request_message == "get data -all":
+            if request_message == "getall":
                 all_data = get_all_data()
                 conn.send(all_data.encode())
             elif request_message == "ping":
@@ -51,7 +48,9 @@ if __name__ == '__main__':
             elif request_message == "help":
                 help_request = get_help_client()
                 conn.send(help_request.encode())
-            elif request_message == "get place":
+            elif request_message == "getplace":
                 conn.sendall(response(request_message))
             elif request_message == "close":
                 close()
+            else:
+                print("Error: Request not recognised")
