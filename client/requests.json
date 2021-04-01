@@ -2,10 +2,9 @@
   "help": "To read get requests descriptions type: help <request>",
   "close": "Close down server",
   "get data all": "Returns all data in database",
-  "get data <day>": "Returns all data from that day",
-  "get data <place>": "Returns all data from that place",
-  "get data <month>": "Returns all data from that month",
+  "get data day": "Returns a list of days to choose data from",
+  "get data place": "Returns a list of places to choose data from",
+  "get data month": "Returns all data from that month",
   "get data rain": "Returns all places where it's raining",
-  "get data temp": "Returns the temperature at all places",
-  "get place": "Returns all the places in the database"
+  "get data temp": "Returns the temperature at all places"
 }
