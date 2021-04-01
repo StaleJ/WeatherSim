@@ -1,7 +1,7 @@
 {
-  "get data -all": "Returns all data in database",
   "help": "To read get requests descriptions type: help <request>",
   "close": "Close down server",
+  "get data all": "Returns all data in database",
   "get data <day>": "Returns all data from that day",
   "get data <place>": "Returns all data from that place",
   "get data <month>": "Returns all data from that month",

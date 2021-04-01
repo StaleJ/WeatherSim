@@ -19,7 +19,7 @@ def request_to_server(request: str) -> str:
     return resp.decode()
 
 
-def close_socket(request: str) -> None:  # Redundant?
+def close_socket(request: str) -> None:
     sock.sendall(request.encode())
     sock.close()
     print("server closed")
@@ -40,13 +40,13 @@ def get_places() -> None:
     request_to_server(f"get data {p}")
 
 
-def get_help(request: str) -> None:  # TODO : Fix this to get_json
+def get_help(request: str) -> None:
     _help = json.loads(request_to_server(request))
     _io = StringIO(_help)
     _dict = json.load(_io)
     longest_description = 0
     longest_key = 0
-    for key, value in _dict.items:
+    for key, value in _dict.items():
         if len(value) > longest_description:
             longest_description = len(value)
         if len(key) > longest_key:
@@ -56,10 +56,13 @@ def get_help(request: str) -> None:  # TODO : Fix this to get_json
     longest_key += 9
     help_header = "All Commands!"
     rest = longest_description - len(help_header)
-    print("-" * (math.floor(rest / 2)+3) + help_header + "-" * (math.ceil(rest / 2)+3) + "\n" + "|" + " " * (longest_description + 4) + "|")
+    print("-" * (math.floor(rest / 2) + 3) + help_header + "-" * (math.ceil(rest / 2) + 3) + "\n" + "|" + " " * (
+                longest_description + 4) + "|")
     for k, v in _dict.items():
-        print(f'|  Request: {k}' + " " * (longest_description-longest_key) + "  |" + f'\n|  Description: {v}'+ " "*(longest_description-13) + '  |\n|  ' + " " * (
-                    longest_description) + "  |")
+        print(
+            f'|  Request: {k}' + " " * (longest_description - longest_key) + "  |" + f'\n|  Description: {v}' + " " * (
+                        longest_description - 13) + '  |\n|  ' + " " * (
+                longest_description) + "  |")
         print("-" * (longest_description + 6) + "\n")
 
 
@@ -72,24 +75,31 @@ if __name__ == '__main__':
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock_address = (HOST, PORT)
         sock.connect(sock_address)
+
         print("Press Enter to exit")
         while (command := input("WAclient> ")).lower():
-            if command == "get data -all":
-                get_all_data(command)
-            elif command == "ping":
-                ping = request_to_server(command)
-                print(ping)
-            elif command == "help":
-                get_help(command)
-            elif command == "close":
-                close_socket(command)
-            elif command == "get place":
-                get_places()
+            input_ = command.split()
+            method = input_[0] + input_[1] if len(input_) > 1 else input_[0]
+            value = input_[2] if len(input_) > 2 else None
+            if method == "getdata":
+                if value == "day":
+                    pass
+                elif value == "place":
+                    pass
+                elif value == "month":
+                    pass
+                elif value == "temp":
+                    pass
+                elif value == "rain":
+                    pass
+                else:
+                    print(f"{value} is not a valid request.\nUse help for more information")
+            if method == "help":
+                pass
+            elif method == "close":
+                pass
             else:
                 print("Invalid command")
 
     except OSError as error:
         print(f"Cant connect to the server!\nOSError : {error}")
-
-# TODO : create help -> show possible commands
-# TODO: get data -all command: do more testing
