@@ -1,0 +1,12 @@
+{
+  "bergen" : {
+    "month" : "may",
+    "perception" : 0,
+    "temperature" : 12.08
+  },
+  "oslo" : {
+    "month" : "april",
+    "perception" : 12,
+    "temperature" : 4.2
+  }
+}
