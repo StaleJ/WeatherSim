@@ -35,23 +35,24 @@ def get_places() -> None:
     print("Available places:")
     for p in places:
         print(p)
-    while p := input("places> "):
+    while p := input("places> ").upper():
         if p in places:
-            request_to_server(f"get data {p}")
+            data = request_to_server(f"getcity;{p}")  # eks getbergen
+            print(data)
         else:
             print(f"{p} is not available")
 
 
 def get_temp() -> None:
-    _temp = get_json("gettemp")
-    print("The temperature at all places:\n")
+    _temp = json.loads(request_to_server("gettemp"))
+    print(f"The temperature at {', '.join(_temp.keys())}:\n")
     for k, v in _temp.items():
         print(" " * 8 + f"{k} is {v}°C.\n")
 
 
 def get_rain() -> None:
-    _rain = get_json("getrain")
-    print("The rain in all places:\n")
+    _rain = json.loads(request_to_server("getrain"))
+    print(f"Rain at {', '.join(_rain.keys())}:\n")
     for k, v in _rain.items():
         print(" " * 8 + f"{k} has {v}mm rain.\n")
 
