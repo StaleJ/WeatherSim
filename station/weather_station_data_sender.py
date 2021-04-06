@@ -3,12 +3,14 @@
 '''
 import socket
 import sys
+import json
+from datetime import datetime
 from time import sleep
 from station import StationSimulator
 
 HOST = 'localhost'  # TODO change this to the server where database is
-PORT = 50008        # Arbitrary non-privileged port TODO define a better port?
-sim_int = 0.1       # Float representing simulation interval, lower = faster
+PORT = 50008  # Arbitrary non-privileged port TODO define a better port?
+sim_int = 0.1  # Float representing simulation interval, lower = faster
 
 # Make the UDP socket used to send with
 try:
@@ -24,14 +26,23 @@ simulator = StationSimulator(simulation_interval=sim_int)
 simulator.turn_on()
 print("Sim turned on")
 
-for _ in range(30):
+for _ in range(100): # 100 here is arbitrary, its just to make it not go forever
     sleep(sim_int)
     # Get the data from station/simulation
-    data = (simulator.rain, simulator.temperature,
-            simulator.location, simulator.month)
-    # Encode the data TODO decide the format of what to send, now its arbitrary
+    data = {str(simulator.location): {
+        datetime.now().isoformat(): {
+            "Rain": simulator.rain,
+            "Temperature": simulator.temperature
+        }
+    }
+    }
+
+    # Convert to JSON/str we can use json.loads(receivedData.decode()) to decode it
+    dataToSend = json.dumps(data)
+
     try:
-        s.sendto(str(data).encode(), ((HOST, PORT)))
+        s.sendto(str(dataToSend).encode(), (HOST, PORT))
+        print("Sent to socket this: ", dataToSend) # Debug print
     except socket.error as e:
         print("Could not send data: ", e)
 
