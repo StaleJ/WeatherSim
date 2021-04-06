@@ -41,9 +41,9 @@ def get_places() -> None:
     print("Available places:")
     for p in places:
         print(p)
-    while p := input("places> ").upper():
+    while p := input("places> ").capitalize():
         if p in places:
-            data = request_to_server(f"getcity;{p}")  # eks getbergen
+            data = request_to_server(f"getcity;{p}")  # eks get;bergen
             print(data)
         else:
             print(f"{p} is not available")
