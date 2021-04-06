@@ -63,18 +63,6 @@ def get_rain() -> None:
         print(" " * 8 + f"{k} has {v}mm rain.\n")
 
 
-def get_month() -> None:
-    months = request_to_server("getmonth").split(";")
-    print("Available months:")
-    for m in months:
-        print(m)
-    while m := input("months> "):
-        if m in months:
-            request_to_server(f"get data {m}")  # Eks: get data may
-        else:
-            print(f"{m} is not available")
-
-
 def get_help(request: str) -> None:
     _help = get_json(request)
     print("OPTIONS")
@@ -101,7 +89,7 @@ if __name__ == '__main__':
                     get_places()
                     continue
                 elif value == "month":
-                    get_month()
+                    print("Not supported operation")
                     continue
                 elif value == "temp":
                     get_temp()
