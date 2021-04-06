@@ -8,7 +8,7 @@ PORT = 5009
 
 def request_to_server(request: str) -> str:
     sock.sendall(request.encode())
-    resp = sock.recv(1024)
+    resp = sock.recv(16384)
     return resp.decode()
 
 
