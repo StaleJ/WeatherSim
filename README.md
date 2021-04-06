@@ -12,38 +12,47 @@ server in which for you to retrieve data from. Our main goal is to
 
 ## Usage
 
-With [Python 3](https://Python.org/) installed, run
+With [Python 3.8+](https://Python.org/) installed with numpy
 
-    $ python3 WeatherData.py
-    $ python3 WeatherAppClient.py
+To install numpy use
+    $ python -m pip install numpy
+
+Then run from project root:
+
+    $ python server/server.py
+    $ python server/weather_station_data_sender.py
+    $ python server/client_server.py
+    $ python client/WeatherAppClient.py
 
 
 The`WeatherAppClient` is a command line program. \
 You can use it to view the weather data that has been generated
 
-To see possible commands, type
+To see possible commands, type:
 
     $ WAclient> help
 
 
-To see all data since simulation start, type
+To recieve all data since the simulation start, type:
 
-    $ WAclient> get data -all
+    $ WAclient> get data all
 
 
 ## About
 
-Data will be periodically genereated from `Station.py` which is called by
-WeatherBaseClient. This data is then forwarded by UDP to Server.py` which stores this data.
+Data will be periodically genereated from `station.py`. `weather_station_data_sender.py` then transmits
+the data by UDP to `server.py` which stores it to `data.json`. This data can then get read from `client_server.py` with TCP
+by the command line program `WeatherAppClient.py`.
+
 
 <h4 align="center">
   <img alt="WeatherModel" src="img/model1.png">
 </h4>
 
-Using the commandline from `client.py` you can retrieve various form of data from the server `server.py`.
+
 ## Known bugs
 
-`DataStorage.txt` will eventually get very big, limiting the whole goddamn operation`.
+`data.json` will eventually get very big, limiting *the whole goddamn operation.*
 
 ---   
 
