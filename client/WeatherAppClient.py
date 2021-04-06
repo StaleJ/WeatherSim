@@ -7,8 +7,14 @@ PORT = 5009
 
 
 def request_to_server(request: str) -> str:
+    # Send first request to database server
     sock.sendall(request.encode())
-    resp = sock.recv(16384)
+    # Receive the size of the file from database
+    size_of_file = int(sock.recv(512).decode())
+    # Send ok message back, server expects it.
+    sock.sendall("OK LETS FKING GO".encode())
+    # Receive the file from database over the network with the given size
+    resp = sock.recv(size_of_file)
     return resp.decode()
 
 
