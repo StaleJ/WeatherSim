@@ -26,7 +26,9 @@ simulator = StationSimulator(simulation_interval=sim_int)
 simulator.turn_on()
 print("Sim turned on")
 
+count=0
 for _ in range(100): # 100 here is arbitrary, its just to make it not go forever
+    count+=1
     sleep(sim_int)
     # Get the data from station/simulation
     data = {str(simulator.location): {
@@ -48,6 +50,7 @@ for _ in range(100): # 100 here is arbitrary, its just to make it not go forever
 
 simulator.shut_down()
 print("Stopped simulation...")
+print(count)
 
 print("closing socket and weather station...")
 s.close()
