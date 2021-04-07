@@ -23,8 +23,8 @@ def saveToJson(jsondata: dict):
     city = list(jsondata.keys()).pop()
     dict1 = json_object.get(city, {})
     dict2 = jsondata.get(city)
-    dict1.update(dict2)
-    json_object[city] = dict1
+    dict2.update(dict1)
+    json_object[city] = dict2
     
     # Dumps file
     a_file = open("data.json", "w")
