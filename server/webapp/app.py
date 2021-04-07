@@ -8,8 +8,9 @@ DATA = "../data.json"
 api = Api(app)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+
     return render_template('index.html', data=get_city())
 
 
@@ -43,7 +44,7 @@ def get_city():
     return list_
 
 
-#  REST API
+# REST API
 
 class RainCity(Resource):
 
@@ -81,6 +82,5 @@ class LastCity(Resource):
 api.add_resource(RainCity, '/rain/<city>')
 api.add_resource(Rain, '/rain')
 api.add_resource(LastCity, '/last')
-
 if __name__ == '__main__':
     app.run(debug=True)

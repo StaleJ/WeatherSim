@@ -32,11 +32,19 @@
     </nav>
   </header>
   <div class="menu">
-      <select name="cities" class="city-select">
+      <select name="cities" id="cities" class="city-select">
         {% for city in data %}
         <option value="{{ city }}">{{city}}</option>
         {% endfor %}
       </select>
+      <script>
+          let city_select = document.getElementById('cities')
+
+          city_select.onchange = function () {
+              city = city_select.value;
+              alert(city)
+          }
+      </script>
   </div>
   <main>
     <section>
