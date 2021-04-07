@@ -19,29 +19,29 @@ def response(request: str) -> None:
     # Step two
     if request == "getall":
         all_data = read_data(DATABASE)
-        send_file_size_to_client(len(all_data)) # My little attempt to fix it
+        send_file_size_to_client(len(all_data))
         conn.sendall(all_data.encode())
     elif request == "help":
         help_data = read_data(HELP)
-        send_file_size_to_client(len(help_data)) # My little attempt to fix it
+        send_file_size_to_client(len(help_data))
         conn.sendall(help_data.encode())
     elif request == "close":
         close()
     elif request == "getplace":
         places = get_place()
-        send_file_size_to_client(len(places))  # My little attempt to fix it
+        send_file_size_to_client(len(places))
         conn.sendall(places.encode())
     elif "getcity" in request:
         city_data = get_city_data(request.split(";")[1])
-        send_file_size_to_client(len(city_data))  # My little attempt to fix it
+        send_file_size_to_client(len(city_data))
         conn.sendall(city_data.encode())
     elif request == "getrain":
         rain_data = get_rain()
-        send_file_size_to_client(len(rain_data))  # My little attempt to fix it
+        send_file_size_to_client(len(rain_data))
         conn.sendall(rain_data.encode())
     elif request == "gettemp":
         temp_data = get_temp()
-        send_file_size_to_client(len(temp_data))  # My little attempt to fix it
+        send_file_size_to_client(len(temp_data)) 
         conn.sendall(temp_data.encode())
     else:
         print("Error: Request not recognised")
