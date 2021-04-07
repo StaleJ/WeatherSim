@@ -25,7 +25,7 @@ def get_all_data() -> dict:
     return json_object
 
 
-def get_city():
+def get_city() -> list:  # Return
     list_ = []
     all_data = get_all_data()
     for city in all_data.keys():
@@ -76,15 +76,21 @@ class LastCity(Resource):
         return {city: City.get(self, city, 1)}
 
 
+class All(Resource):
+
+    def get(self):
+        return get_all_data()
+
+
 #
-# Actually setup the Api resource routing here
+# Setup the Api resource routing here
 #
 
 api.add_resource(City, '/<city>')  # gives data for the last 24h for specific city
 api.add_resource(Rain, '/data')  # gives data for the last 24h for all cities
 api.add_resource(Last, '/last')  # give last measurement for all cities
 api.add_resource(LastCity, '/<city>/last')  # give last measurement for specific city
-
+api.add_resource(All, '/all')  # Returns all data in the database
 
 if __name__ == '__main__':
     app.run(debug=True)

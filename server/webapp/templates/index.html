@@ -1,68 +1,86 @@
 <!doctype html>
 <!-- <title>WeatherAPP</title>
 {% if name %}
-  <h1>Hello {{ name }}!</h1>
+  <h1>fuck {{ name }}!</h1>
 {% else %}
   <h1>Hello, World!</h1>
 {% endif %} -->
 
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="An weatherAPP made by a group of students at UIB">
-  <title>Group30's WeatherAPP</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An weatherAPP made by a group of students at UIB">
+    <title>Group30's WeatherAPP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
 </head>
 <body>
 <div class="wrapper">
-  <header>
-    <nav id="topMenu">
-      <div class="navBox">
-        <h1>
-          <a href="{{ url_for('index') }}">Group30's WeatherAPP</a>
-        </h1>
-        <ul>
-          <li><a href="{{ url_for('about') }}">About</a></li>
-          <li><a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">GitHub</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <div class="menu">
-      <select name="cities" id="cities" class="city-select">
-        {% for city in data %}
-        <option value="{{ city }}">{{city}}</option>
-        {% endfor %}
-      </select>
-      <script>
-          let city_select = document.getElementById('cities')
+    <header>
+        <nav id="topMenu">
+            <div class="navBox">
+                <h1>
+                    <a href="{{ url_for('index') }}">Group30's WeatherAPP</a>
+                </h1>
+                <ul>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">GitHub</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="menu">
+        <select name="cities" id="cities" class="city-select">
+            {% for city in data %}
+            <option value="{{ city }}">{{city}}</option>
+            {% endfor %}
+        </select>
 
-          city_select.onchange = function () {
-              city = city_select.value;
-              alert(city)
-          }
-      </script>
-  </div>
-  <main>
-    <section>
-      <div class="location">
-        <div class="city">Bergen</div>
-        <div class="date">Wednesday 07 April 2021</div>
-      </div>
-    </section>
-    <div class="current">
-      <div class="temp">20 <span>°C</span></div>
-      <div class="rain">0.5 <span>mm</span></div>
     </div>
-  </main>
-  <footer>
-    <p>Made by INF142 <a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">Group 30!</a>. Copyrigth &copy; 2021, Group30</p>
-  </footer>
+    <main>
+        <section>
+            <div class="location">
+                <div class="city"><p id="city">Bergen</p></div>
+                <div class="date"><p id="date">Wednesday 07 April 2021</p></div>
+            </div>
+        </section>
+        <div class="current">
+            <div class="temp"><p id="temp">20</p></div>
+            <div class="rain"><p id="rain">0,5</p> </div>
+        </div>
+    </main>
+    <footer>
+        <p>Made by INF142 <a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">Group 30!</a>.
+            Copyrigth &copy; 2021, Group30</p>
+    </footer>
 </div>
+    <script>
+        let city_select = document.getElementById('cities');
+        let temp = document.getElementById('temp');
+        let rain = document.getElementById('rain');
+        let city = document.getElementById('city');
 
+        city_select.onchange = function () {
+            selected_city = city_select.value;
+
+            fetch('/' + selected_city + '/last').then(function (response) {
+                response.json().then(function (data) {
+                    dato = data[selected_city];
+                    city.innerHTML = selected_city
+                    for (var key in dato) {
+                        temp.innerHTML = dato[key].Temperature + "℃";
+                        rain.innerHTML = dato[key].Rain + " mm"
+                        console.log("temp: " + temp.innerHTML);
+                        console.log("rain: " + rain.innerHTML);
+
+                    }
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>
