@@ -4,6 +4,7 @@ from io import StringIO
 
 HOST = "127.0.0.1"
 PORT = 5009
+ENTERPRISE_FRIENDLY_HELLO = f"HELLO {HOST} SERVER"
 
 
 def request_to_server(request: str) -> str:
@@ -12,7 +13,7 @@ def request_to_server(request: str) -> str:
     # Receive the size of the file from database
     size_of_file = int(sock.recv(512).decode())
     # Send ok message back, server expects it.
-    sock.sendall("OK LETS FKING GO".encode())
+    sock.sendall(ENTERPRISE_FRIENDLY_HELLO.encode())
     # Receive the file from database over the network with the given size
     resp = sock.recv(size_of_file)
     return resp.decode()

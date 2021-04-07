@@ -5,14 +5,16 @@ ADDRESS = "127.0.0.1"
 PORT = 5009
 DATABASE = "data.json"
 HELP = "requests.json"
+ENTERPRISE_FRIENDLY_HELLO = f"HELLO {ADDRESS} SERVER"
 
 
 def send_file_size_to_client(buffer_size: int):
     conn.sendall(str(buffer_size).encode())
-    if conn.recv(512).decode() == "OK LETS FKING GO":
+    ENTERPRISE_FRIENDLY_REPLY_FROM_CLIENT = conn.recv(512).decode()
+    if ENTERPRISE_FRIENDLY_REPLY_FROM_CLIENT == ENTERPRISE_FRIENDLY_HELLO:
         return
     else:
-        raise OverflowError("Client will not receive the rest of the data for some reason")
+        raise OverflowError(f"Client failed to say hello back properly, it said:{ENTERPRISE_FRIENDLY_REPLY_FROM_CLIENT}")
 
 
 def response(request: str) -> None:
