@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 </head>
-<body>
+<body onload="javascript:whenload()">
 <div class="wrapper">
     <header>
         <nav id="topMenu">
@@ -63,7 +63,25 @@
         let rain = document.getElementById('rain');
         let city = document.getElementById('city');
 
-        city_select.onchange = function () {
+        city_select.onchange = function test() {
+            selected_city = city_select.value;
+
+            fetch('/' + selected_city + '/last').then(function (response) {
+                response.json().then(function (data) {
+                    dato = data[selected_city];
+                    city.innerHTML = selected_city
+                    for (var key in dato) {
+                        temp.innerHTML = dato[key].Temperature + "℃";
+                        rain.innerHTML = dato[key].Rain + " mm"
+                        console.log("temp: " + temp.innerHTML);
+                        console.log("rain: " + rain.innerHTML);
+
+                    }
+                });
+            });
+        }
+
+        function whenload() {
             selected_city = city_select.value;
 
             fetch('/' + selected_city + '/last').then(function (response) {
