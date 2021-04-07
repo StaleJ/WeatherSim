@@ -4,11 +4,18 @@ from io import StringIO
 
 HOST = "127.0.0.1"
 PORT = 5009
+ENTERPRISE_FRIENDLY_HELLO = f"HELLO {HOST} SERVER"
 
 
 def request_to_server(request: str) -> str:
+    # Send first request to database server
     sock.sendall(request.encode())
-    resp = sock.recv(16384)
+    # Receive the size of the file from database
+    size_of_file = int(sock.recv(512).decode())
+    # Send ok message back, server expects it.
+    sock.sendall(ENTERPRISE_FRIENDLY_HELLO.encode())
+    # Receive the file from database over the network with the given size
+    resp = sock.recv(size_of_file)
     return resp.decode()
 
 
@@ -35,9 +42,9 @@ def get_places() -> None:
     print("Available places:")
     for p in places:
         print(p)
-    while p := input("places> ").upper():
+    while p := input("places> ").capitalize():
         if p in places:
-            data = request_to_server(f"getcity;{p}")  # eks getbergen
+            data = request_to_server(f"getcity;{p}")  # eks get;bergen
             print(data)
         else:
             print(f"{p} is not available")
@@ -55,18 +62,6 @@ def get_rain() -> None:
     print(f"Rain at {', '.join(_rain.keys())}:\n")
     for k, v in _rain.items():
         print(" " * 8 + f"{k} has {v}mm rain.\n")
-
-
-def get_month() -> None:
-    months = request_to_server("getmonth").split(";")
-    print("Available months:")
-    for m in months:
-        print(m)
-    while m := input("months> "):
-        if m in months:
-            request_to_server(f"get data {m}")  # Eks: get data may
-        else:
-            print(f"{m} is not available")
 
 
 def get_help(request: str) -> None:
@@ -95,7 +90,7 @@ if __name__ == '__main__':
                     get_places()
                     continue
                 elif value == "month":
-                    get_month()
+                    print("Not supported operation")
                     continue
                 elif value == "temp":
                     get_temp()

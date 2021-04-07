@@ -3,7 +3,6 @@
   "close": "Close down server",
   "get data all": "Returns all data in database",
   "get data place": "Returns a list of places to choose data from",
-  "get data month": "Returns all data from that month",
   "get data rain": "Returns the amount of rain in all places",
   "get data temp": "Returns the temperature at all places"
 }
