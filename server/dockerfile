@@ -1,0 +1,10 @@
+FROM python:latest
+
+WORKDIR /server
+
+COPY . .
+
+RUN chmod a+x docker_entrypoint.sh
+
+# ENTRYPOINT [ "./docker_entrypoint.sh" ]
+CMD ["python","server.py"]
