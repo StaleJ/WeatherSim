@@ -10,7 +10,6 @@ api = Api(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
     return render_template('index.html', data=get_city())
 
 
@@ -26,15 +25,6 @@ def get_all_data() -> dict:
     return json_object
 
 
-def get_last_temp_rain():
-    data = {}
-    all_data = get_all_data()
-    for city in all_data.keys():
-        data[city] = all_data[city.capitalize()]
-
-    return data
-
-
 def get_city():
     list_ = []
     all_data = get_all_data()
@@ -46,15 +36,15 @@ def get_city():
 
 # REST API
 
-class RainCity(Resource):
+class City(Resource):
 
-    def get(self, city: str):
+    def get(self, city, updates=24):
         cap_city = city.capitalize()
         data = {}
         all_data = get_all_data()
-        for i in range(min(24, len(all_data[cap_city]))):
+        for i in range(min(updates, len(all_data[cap_city]))):
             day = all_data[cap_city].popitem()
-            data[day[0]] = day[1]['Rain']
+            data[day[0]] = day[1]
 
         return data
 
@@ -65,22 +55,36 @@ class Rain(Resource):
         data = {}
         all_data = get_all_data()
         for city in all_data.keys():
-            data[city] = RainCity.get(self, city)
+            data[city] = City.get(self, city)
+        return data
+
+
+class Last(Resource):
+
+    def get(self):
+        data = {}
+        all_data = get_all_data()
+        for city in all_data.keys():
+            data[city] = City.get(self, city, 1)
+
         return data
 
 
 class LastCity(Resource):
 
-    def get(self):
-        return get_last_temp_rain()
+    def get(self, city):
+        return {city: City.get(self, city, 1)}
 
 
 #
 # Actually setup the Api resource routing here
 #
 
-api.add_resource(RainCity, '/rain/<city>')
-api.add_resource(Rain, '/rain')
-api.add_resource(LastCity, '/last')
+api.add_resource(City, '/<city>')  # gives data for the last 24h for specific city
+api.add_resource(Rain, '/data')  # gives data for the last 24h for all cities
+api.add_resource(Last, '/last')  # give last measurement for all cities
+api.add_resource(LastCity, '/<city>/last')  # give last measurement for specific city
+
+
 if __name__ == '__main__':
     app.run(debug=True)
