@@ -34,7 +34,7 @@ def saveToJson(jsondata: dict):
 
 
 def main():
-    address = "localhost"
+    address = ""
     port = 50008
 
     sock = create_socket(address, port)

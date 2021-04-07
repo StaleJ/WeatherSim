@@ -1,17 +1,21 @@
 version: "3"
 
 services:
-
   server:
-
-    build: /server
-
+    build: ./server
     command: python ./server.py # Eller så kan vi ta den .sh filen
-
     ports:
-      - 50008:50008 # Station port
+      - 50008:50008/udp # Station port
       # - 5008:5008 # Client port
-
+    environment:
+      - PYTHONUNBUFFERED=1
+  weather_station:
+    build: ./station
+    command: python ./weather_station_data_sender.py
+    depends_on:
+      - server
+    environment:
+      - PYTHONUNBUFFERED=1
 #  client:
 #
 #    build: /client  # Where to find the docker file
@@ -20,13 +24,3 @@ services:
 #
 #    depends_on:
 #      - server
-
-  weather_station:
-    build: station
-
-    command: python ./weather_station_data_sender.py
-
-    network_mode: host
-
-    depends_on:
-      - server

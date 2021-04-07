@@ -37,6 +37,11 @@ To recieve all data since the simulation start, type:
 
     $ WAclient> get data all
 
+## Running with docker 
+
+Clone the repo and run this command in the project root:
+    
+    docker compose up --build --force-recreate
 
 ## About
 
