@@ -8,7 +8,7 @@ services:
     tty: true        # docker run -t
     command: ./docker_entrypoint.sh # Eller så kan vi ta den .sh filen
     ports:
-#      - 50008:50008/udp # Station port
+      - 50008:50008/udp # Station port
       - 5009:5009 # Client port
 
 

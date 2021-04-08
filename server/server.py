@@ -46,7 +46,7 @@ def main():
         jsonfile = json.loads(msg)
         saveToJson(jsonfile)
         count += 1
-        print(count)
+        print(str(count))
 
 
 if __name__ == '__main__':

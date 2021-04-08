@@ -21,7 +21,7 @@ except socket.error as e:
     sys.exit()
 
 # Simulate some data
-print("starting simulation")
+print("Starting simulation from weather station container")
 simulator = StationSimulator(simulation_interval=sim_int)
 simulator.turn_on()
 print("Sim turned on")
@@ -44,14 +44,15 @@ for _ in range(100): # 100 here is arbitrary, its just to make it not go forever
 
     try:
         s.sendto(str(dataToSend).encode(), (HOST, PORT))
-        print("Sent to socket this: ", dataToSend) # Debug print
+        #print("Sent to socket this: ", dataToSend) # Debug print
     except socket.error as e:
         print("Could not send data: ", e)
 
 simulator.shut_down()
-print("Stopped simulation...")
+print("Stopped simulation now...")
 print(count)
 
 print("closing socket and weather station...")
+print("Goodbye")
 s.close()
 sys.exit()
