@@ -40,7 +40,7 @@ def get_all_data() -> dict:
     return json_object
 
 
-def get_city() -> list:  # Return
+def get_city() -> list:
     list_ = []
     all_data = get_all_data()
     for city in all_data.keys():
@@ -49,7 +49,7 @@ def get_city() -> list:  # Return
     return list_
 
 
-def get_request(city, updates=24):
+def get_request(city, updates=24) -> dict:
     cap_city = city.capitalize()
     data = {}
     all_data = get_all_data()
@@ -65,14 +65,14 @@ def get_request(city, updates=24):
 class City(MethodResource,Resource):
 
     @doc(description="Gives data for the last 24h for specific city", tags=["GET"])
-    def get(self, city, updates=24):
+    def get(self, city) -> dict:
         return get_request(city)
 
 
 class AllData(MethodResource, Resource):
 
     @doc(description="Gives data for the last 24h for all cities", tags=["GET"])
-    def get(self):
+    def get(self) -> dict:
         data = {}
         all_data = get_all_data()
         for city in all_data.keys():
@@ -83,7 +83,7 @@ class AllData(MethodResource, Resource):
 class Last(MethodResource, Resource):
 
     @doc(description="Give last measurement for all cities", tags=["GET"])
-    def get(self):
+    def get(self) -> dict:
         data = {}
         all_data = get_all_data()
         for city in all_data.keys():
