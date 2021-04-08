@@ -21,6 +21,7 @@
                 </h1>
                 <ul>
                     <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="http://127.0.0.1:5000/swagger-ui/">API</a></li>
                     <li><a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">GitHub</a></li>
                 </ul>
             </div>
@@ -68,7 +69,6 @@
 
     city_select.onchange = function test() {
         selected_city = city_select.value;
-
         fetch('/' + selected_city + '/last').then(function (response) {
             response.json().then(function (data) {
                 dato = data[selected_city];
@@ -77,12 +77,17 @@
                     temp.innerHTML = dato[key].Temperature + "℃";
                     rain.innerHTML = dato[key].Rain + " mm"
                 }
+                updateTempData(tChart)
+                updateRainData(rChart)
             });
         });
     }
 
     function whenload() {
         selected_city = city_select.value;
+        updateRainData(rChart)
+        updateTempData(tChart)
+        getTime()
 
         fetch('/' + selected_city + '/last').then(function (response) {
             response.json().then(function (data) {
@@ -106,25 +111,55 @@
             for (var key in data) {
                 tempList.push(data[key].Temperature);
             }
-            console.log("hello" + typeof tempList)
+            console.log("hello " + Array.isArray(tempList));
             return tempList;
 
         }
         return tempList;
-
     }
 
-    function updateData(chart, data) {
-        chart.data.datasets[0].data = tempData();
-        chart.update()
+    async function rainData() {
+        var rainList = []
+        let data = await fetch('/' + selected_city).then(response => response.json());
+        if (data !== undefined) {
+            for (var key in data){
+                rainList.push(data[key].Rain);
+            }
+            return rainList;
+        }
+        return rainList;
     }
 
-    function removeData(chart) {
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
-        });
-        chart.update()
+    async function updateTempData(chart) {
+        tempDATA = await tempData()
+        timeDATA = await getTime()
+        chart.data.datasets[0].data = tempDATA.reverse();
+        chart.data.labels = timeDATA;
+        chart.update();
     }
+
+    async function updateRainData(chart) {
+        rdata = await rainData();
+        timeDATA = await getTime();
+        chart.data.datasets[0].data = rdata;
+        chart.data.labels = timeDATA;
+        chart.update();
+    }
+
+    async function getTime(){ //2021-04-08T14:07:15.633329
+        var timeList = []
+        let data = await fetch('/' + selected_city).then(response => response.json());
+        if (data !== undefined) {
+            for (var key in data){
+                timeList.push(key.charAt(11).concat(key.charAt(12)));
+            }
+            return timeList;
+        }
+        return timeList;
+    }
+
+
+
 
     var ctx = document.getElementById('rainChart').getContext('2d');
     var rChart = new Chart(ctx, {
