@@ -49,7 +49,7 @@ class StationSimulator:
     }
 
     def __init__(self,
-                 location: str = "Bergen",
+                 location: str = "Stavanger",
                  month: str = "May",
                  avg_high_temp: int = 15,
                  avg_low_temp: int = 7,
