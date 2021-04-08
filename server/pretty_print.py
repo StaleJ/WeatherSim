@@ -16,6 +16,7 @@ def format1(data: dict):
             string += " " * 4 + k[:10] + " at " + k[11:16] + ":\n"
             for n, m in v.items():
                 string += " " * 8 + n + ": " + str(m) + "\n"
+        string += "\n"
     return string
 
 
@@ -28,6 +29,7 @@ def format2(data: dict):
             for n, m in v.items():
                 string += n + ": " + str(m) + " "
             string += "\n"
+        string += "\n"
     return string
 
 
