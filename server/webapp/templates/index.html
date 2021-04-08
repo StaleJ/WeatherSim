@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An weatherAPP made by a group of students at UIB">
     <title>Group30's WeatherAPP</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -39,7 +40,7 @@
         <section>
             <div class="location">
                 <div class="city"><p id="city">Bergen</p></div>
-                <div class="date"><p id="date">Wednesday 07 April 2021</p></div>
+                <div class="date"><p id="date">07 April 2021</p></div>
             </div>
         </section>
         <div class="current">
@@ -61,10 +62,23 @@
     </footer>
 </div>
 <script>
+    let dates = {'01':'January',
+		'02':'February',
+		'03':'March',
+		'04':'April',
+		'05':'May',
+		'06':'June',
+		'07':'July',
+		'08':'August',
+		'09':'September',
+		'10':'October',
+		'11':'November',
+		'12':'December'	}
     let city_select = document.getElementById('cities');
     let temp = document.getElementById('temp');
     let rain = document.getElementById('rain');
     let city = document.getElementById('city');
+    let date = document.getElementById('date');
     let selected_city = city_select.value;
 
     city_select.onchange = function test() {
@@ -74,8 +88,12 @@
                 dato = data[selected_city];
                 city.innerHTML = selected_city
                 for (var key in dato) {
+                    month = key.charAt(5).concat(key.charAt(6));
+                    day = key.charAt(8).concat(key.charAt(9));
+                    year = key.substr(0,4);
                     temp.innerHTML = dato[key].Temperature + "℃";
                     rain.innerHTML = dato[key].Rain + " mm"
+                    date.innerHTML = day + " " + dates[month] + " " + year
                 }
                 updateTempData(tChart)
                 updateRainData(rChart)
@@ -87,18 +105,18 @@
         selected_city = city_select.value;
         updateRainData(rChart)
         updateTempData(tChart)
-        getTime()
 
-        fetch('/' + selected_city + '/last').then(function (response) {
+        fetch('/' + selected_city + '/last').then(function (response) { //2021-04-09T00:07:16.638113
             response.json().then(function (data) {
-                dato = data[selected_city];
+                dictKey = data[selected_city];
                 city.innerHTML = selected_city
-                for (var key in dato) {
-                    temp.innerHTML = dato[key].Temperature + "℃";
-                    rain.innerHTML = dato[key].Rain + " mm"
-                    console.log("temp: " + temp.innerHTML);
-                    console.log("rain: " + rain.innerHTML);
-
+                for (var key in dictKey) {
+                    month = key.charAt(5).concat(key.charAt(6));
+                    day = key.charAt(8).concat(key.charAt(9));
+                    year = key.substr(0,4);
+                    temp.innerHTML = dictKey[key].Temperature + "℃";
+                    rain.innerHTML = dictKey[key].Rain + " mm"
+                    date.innerHTML = day + " " + dates[month] + " " + year
                 }
             });
         });
@@ -146,7 +164,7 @@
         chart.update();
     }
 
-    async function getTime(){ //2021-04-08T14:07:15.633329
+    async function getTime(){
         var timeList = []
         let data = await fetch('/' + selected_city).then(response => response.json());
         if (data !== undefined) {
@@ -157,7 +175,6 @@
         }
         return timeList;
     }
-
 
 
 
