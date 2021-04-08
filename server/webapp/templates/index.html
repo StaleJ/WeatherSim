@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
 </head>
 <body onload="javascript:whenload()">
 <div class="wrapper">
@@ -51,6 +51,14 @@
             <div class="temp"><p id="temp">20</p></div>
             <div class="rain"><p id="rain">0,5</p> </div>
         </div>
+        <section>
+            <div>
+                <canvas id="rainChart" width="600" height="200"></canvas>
+            </div>
+            <div>
+                <canvas id="tempChart" width="600" height="200"></canvas>
+            </div>
+        </section>
     </main>
     <footer>
         <p>Made by INF142 <a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">Group 30!</a>.
@@ -73,9 +81,6 @@
                     for (var key in dato) {
                         temp.innerHTML = dato[key].Temperature + "℃";
                         rain.innerHTML = dato[key].Rain + " mm"
-                        console.log("temp: " + temp.innerHTML);
-                        console.log("rain: " + rain.innerHTML);
-
                     }
                 });
             });
@@ -99,6 +104,97 @@
             });
         }
     </script>
+<script>
+    var ctx = document.getElementById('rainChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['00', '01', '02', '03', '04', '05', '06', '08', '09',
+                '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
+                '20', '21', '22', '23', '24'],
+            datasets: [{
+                label: 'rain',
+                data: [0.2, 0.1, 0.8, 0.1, 0.8, 0.9, 0.5, 0.4, 0.2, 0.3, 0.3, 0.8,
+                    0.5, 0.6, 0.5, 0.8, 0.4, 0.6, 0.4, 0.7, 0.6, 0.6, 0.3, 0.5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Rain',
+                    color: 'gold'
+                },
+            }
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById('tempChart').getContext('2d');
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: data = {
+            labels: ['00', '01', '02', '03', '04', '05', '06', '08', '09',
+                '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
+                '20', '21', '22', '23', '24'],
+            datasets: [{
+                label: 'temp',
+                data: [10, 9, 8, 7, 7, 7, 8, 8, 9, 9, 10, 9, 11, 12, 13, 13, 13, 12, 12, 11, 10, 9, 10, 10],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Temp',
+                    color: 'gold'
+                },
+            },
+            scales: {
+                yAxes: [{
+                    type: 'time',
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Hours'
+                    },
+                }],
+                x: [{
+                    type: 'temp',
+                    scaleLabel: {
+                        display: true,
+                        labelString: '°C'
+                    },
+                }]
+            }
+        }
+    });
+</script>
 </body>
 
 </html>
