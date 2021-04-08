@@ -1,5 +1,6 @@
 import socket
 import json
+import prettyPrint
 
 ADDRESS = "127.0.0.1"
 PORT = 5009
@@ -79,7 +80,7 @@ def get_place() -> str:
 def get_city_data(city) -> str:
     _data = get_json(DATABASE)
     if city in _data.keys():
-        return str(_data[city])
+        return prettyPrint.format1(_data[city])
     else:
         return "Place not found"
 
