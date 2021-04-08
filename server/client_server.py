@@ -21,7 +21,7 @@ def send_file_size_to_client(buffer_size: int):
 def response(request: str) -> None:
     # Step two
     if request == "getall":
-        all_data = json.dumps(read_data(DATABASE), indent=4)
+        all_data = prettyPrint.format1(get_json(DATABASE))
         send_file_size_to_client(len(all_data))
         conn.sendall(all_data.encode())
     elif request == "help":
