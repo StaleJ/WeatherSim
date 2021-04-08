@@ -1,0 +1,148 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #333;
+  color: white;
+
+  font-family: 'Share Tech Mono', monospace;
+}
+
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+
+a:hover{
+  color: gold;
+}
+
+main {
+  flex: 1 1 100%;
+  padding: 25px 25px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.navBox{
+  margin: auto;
+  max-width: 95%;
+  overflow: auto;
+}
+
+.menu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px, 15px, 15px;
+}
+
+.city-select {
+  width: 100%;
+  max-width: 280px;
+  padding: 10px, 15px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px 0px 10px 0px;
+  border-bottom: 3px solid gold;
+  
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  transition: 0.2s ease-out;
+}
+
+.city-select:focus{
+  background-color: grey;
+}
+
+.city-select:hover{
+  background-color: grey;
+}
+
+.city-select option{
+  background: gray;
+}
+
+.location .city{
+  color: white;
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.location .data{
+  font-size: 16px;
+}
+
+.current .temp{
+  font-size: 100px;
+  font-weight: 900;
+  margin: 30px 0px;
+  text-shadow: 2px 8px rgba(0,0,0,0.5);
+}
+
+.current .rain{
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 0px 3px rgba(0,0,0,0.4);
+}
+
+#topMenu{
+  list-style: none;
+  width: 100%;
+  overflow: auto;
+  padding-top: 20px;
+}
+
+#topMenu h1{
+  float: left;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 3px black;
+  font: bold caption;
+}
+
+#topMenu ul {
+  float: right;
+  list-style: none;
+}
+
+#topMenu ul li{
+  float: left;
+}
+
+#topMenu ul li a{
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+
+#topMenu ul li a:hover{
+  color: gold;
+}
+
