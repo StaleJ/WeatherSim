@@ -1,10 +1,4 @@
 <!doctype html>
-<!-- <title>WeatherAPP</title>
-{% if name %}
-  <h1>fuck {{ name }}!</h1>
-{% else %}
-  <h1>Hello, World!</h1>
-{% endif %} -->
 
 <html lang="en">
 <head>
@@ -49,7 +43,7 @@
         </section>
         <div class="current">
             <div class="temp"><p id="temp">20</p></div>
-            <div class="rain"><p id="rain">0,5</p> </div>
+            <div class="rain"><p id="rain">0,5</p></div>
         </div>
         <section>
             <div>
@@ -65,48 +59,75 @@
             Copyrigth &copy; 2021, Group30</p>
     </footer>
 </div>
-    <script>
-        let city_select = document.getElementById('cities');
-        let temp = document.getElementById('temp');
-        let rain = document.getElementById('rain');
-        let city = document.getElementById('city');
-
-        city_select.onchange = function test() {
-            selected_city = city_select.value;
-
-            fetch('/' + selected_city + '/last').then(function (response) {
-                response.json().then(function (data) {
-                    dato = data[selected_city];
-                    city.innerHTML = selected_city
-                    for (var key in dato) {
-                        temp.innerHTML = dato[key].Temperature + "℃";
-                        rain.innerHTML = dato[key].Rain + " mm"
-                    }
-                });
-            });
-        }
-
-        function whenload() {
-            selected_city = city_select.value;
-
-            fetch('/' + selected_city + '/last').then(function (response) {
-                response.json().then(function (data) {
-                    dato = data[selected_city];
-                    city.innerHTML = selected_city
-                    for (var key in dato) {
-                        temp.innerHTML = dato[key].Temperature + "℃";
-                        rain.innerHTML = dato[key].Rain + " mm"
-                        console.log("temp: " + temp.innerHTML);
-                        console.log("rain: " + rain.innerHTML);
-
-                    }
-                });
-            });
-        }
-    </script>
 <script>
+    let city_select = document.getElementById('cities');
+    let temp = document.getElementById('temp');
+    let rain = document.getElementById('rain');
+    let city = document.getElementById('city');
+    let selected_city = city_select.value;
+
+    city_select.onchange = function test() {
+        selected_city = city_select.value;
+
+        fetch('/' + selected_city + '/last').then(function (response) {
+            response.json().then(function (data) {
+                dato = data[selected_city];
+                city.innerHTML = selected_city
+                for (var key in dato) {
+                    temp.innerHTML = dato[key].Temperature + "℃";
+                    rain.innerHTML = dato[key].Rain + " mm"
+                }
+            });
+        });
+    }
+
+    function whenload() {
+        selected_city = city_select.value;
+
+        fetch('/' + selected_city + '/last').then(function (response) {
+            response.json().then(function (data) {
+                dato = data[selected_city];
+                city.innerHTML = selected_city
+                for (var key in dato) {
+                    temp.innerHTML = dato[key].Temperature + "℃";
+                    rain.innerHTML = dato[key].Rain + " mm"
+                    console.log("temp: " + temp.innerHTML);
+                    console.log("rain: " + rain.innerHTML);
+
+                }
+            });
+        });
+    }
+
+    async function tempData() {
+        var tempList = []
+        let data = await fetch('/' + selected_city).then(response => response.json());
+        if (data !== undefined) {
+            for (var key in data) {
+                tempList.push(data[key].Temperature);
+            }
+            console.log("hello" + typeof tempList)
+            return tempList;
+
+        }
+        return tempList;
+
+    }
+
+    function updateData(chart, data) {
+        chart.data.datasets[0].data = tempData();
+        chart.update()
+    }
+
+    function removeData(chart) {
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update()
+    }
+
     var ctx = document.getElementById('rainChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    var rChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['00', '01', '02', '03', '04', '05', '06', '08', '09',
@@ -138,10 +159,8 @@
             }
         }
     });
-</script>
-<script>
     var ctx = document.getElementById('tempChart').getContext('2d');
-    var myLineChart = new Chart(ctx, {
+    var tChart = new Chart(ctx, {
         type: 'line',
         data: data = {
             labels: ['00', '01', '02', '03', '04', '05', '06', '08', '09',

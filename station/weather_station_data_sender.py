@@ -31,19 +31,10 @@ count = 0
 for i in range(100):  # 100 here is arbitrary, its just to make it not go forever
     count += 1
     sleep(sim_int)
-    iso_date = datetime.now() + timedelta(hours=3 * i)
+    iso_date = datetime.now() + timedelta(hours=i)
     # Get the data from station/simulation
     data = {str(simulator.location): {
         iso_date.isoformat(): {
-            "Rain": simulator.rain,
-            "Temperature": simulator.temperature
-        }
-    }
-    }
-    # Get the data from station/simulation
-
-    data = {str(simulator.location): {
-        datetime.now().isoformat(): {
             "Rain": simulator.rain,
             "Temperature": simulator.temperature
         }
