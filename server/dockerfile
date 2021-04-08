@@ -4,5 +4,8 @@ WORKDIR /server
 
 COPY . .
 
-# ENTRYPOINT [ "./docker_entrypoint.sh" ]
-CMD ["python","server.py"]
+RUN chmod a+x docker_entrypoint.sh
+
+ENTRYPOINT [ "./docker_entrypoint.sh" ]
+
+# CMD ["python","server.py"]

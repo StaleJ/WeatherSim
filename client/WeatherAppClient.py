@@ -2,9 +2,9 @@ import socket
 import json
 from io import StringIO
 
-HOST = "127.0.0.1"
+HOST = "server"
 PORT = 5009
-ENTERPRISE_FRIENDLY_HELLO = f"HELLO {HOST} SERVER"
+ENTERPRISE_FRIENDLY_HELLO = "HELLO SERVER"
 
 
 def request_to_server(request: str) -> str:
@@ -74,12 +74,17 @@ def get_help(request: str) -> None:
 
 
 if __name__ == '__main__':
+    print("Starting Web App Client...")
 
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock_address = (HOST, PORT)
         sock.connect(sock_address)
 
+        print("Tell me")
+        print("who let the dogs out")
+        x = input()
+        print(x)
         print("Press Enter to exit")
         while (command := input("WAclient> ")).lower():
             input_ = command.split()

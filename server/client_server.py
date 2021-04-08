@@ -1,11 +1,11 @@
 import socket
 import json
 
-ADDRESS = "127.0.0.1"
+ADDRESS = ""
 PORT = 5009
 DATABASE = "data.json"
 HELP = "requests.json"
-ENTERPRISE_FRIENDLY_HELLO = f"HELLO {ADDRESS} SERVER"
+ENTERPRISE_FRIENDLY_HELLO = f"HELLO SERVER"
 
 
 def send_file_size_to_client(buffer_size: int):
@@ -110,6 +110,7 @@ if __name__ == '__main__':
     sock.bind((ADDRESS, PORT))
     sock.listen()
 
+    print("Client-server V1.0  is listening")
     while True:
         conn, _ = sock.accept()
         while request_message := conn.recv(1024).decode():

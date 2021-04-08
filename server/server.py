@@ -40,6 +40,7 @@ def main():
     sock = create_socket(address, port)
     count = 0
 
+    print("Server is listening")
     while True:
         msg = receive(sock)
         jsonfile = json.loads(msg)
