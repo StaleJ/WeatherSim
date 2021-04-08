@@ -12,21 +12,19 @@ services:
       - 5009:5009 # Client port
 
 
-#  weather_station:
-#
-#    build: ./station
-#    command: python ./weather_station_data_sender.py
-#    depends_on:
-#      - server
-#    environment:
-#      - PYTHONUNBUFFERED=1
+  weather_station:
 
-  client:
-    build: /client  # Where to find the docker file
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    command: python ./WeatherAppClient.py
-    ports:
-      - 8080:8080
+    build: ./station
+    tty: true 
+    command: python ./weather_station_data_sender.py
     depends_on:
       - server
+ #client:
+ #  build: /client  # Where to find the docker file
+ #  stdin_open: true # docker run -i
+ #  tty: true        # docker run -t
+ #  command: python ./WeatherAppClient.py
+ #  ports:
+ #    - 8080:8080
+ #  depends_on:
+ #    - server
