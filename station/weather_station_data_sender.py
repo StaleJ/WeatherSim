@@ -9,7 +9,8 @@ from time import sleep
 
 from station import StationSimulator
 
-HOST = 'server'
+HOST = "server" if len(sys.argv)>1 else "localhost"
+
 PORT = 50008  # Arbitrary non-privileged port TODO define a better port?
 sim_int = 0.1  # Float representing simulation interval, lower = faster
 
