@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An weatherAPP made by a group of students at UIB">
     <title>Group30's WeatherAPP</title>
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -25,19 +26,20 @@
         </div>
       </nav>
     </header>
-    <section>
-        <main>
-            <div class="about">
-                <h2>Group30's WeatherAPP</h2>
-                <p>Group30's WeatherAPP is a school project by some students form UIB.
+      <main>
+          <div class="about">
+              <h2>Group30's WeatherAPP</h2>
+              <div class="info">
+                  <p>Group30's WeatherAPP is a school project by some students form UIB.
                 The main goal of the project is to demonstrate socket programming in python, with TCP and UDP.
                 The project consists of a weather station that sends weather data to a server that then stores the
                 data in a file and handles requests for the data, fox example to this web app that you are viewing
                 right now. You might ask, whose man is this? And to tell you the truth, we don't know. The server can
-                also handle requests from a client with TCP to a program operated through the terminal. </p>
-            </div>
-        </main>
-    </section>
+                      also handle requests from a client with TCP to a program operated through the terminal.
+                  </p>
+              </div>
+          </div>
+      </main>
     <footer>
       <p>Made by INF142 <a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">Group 30!</a>. Copyrigth &copy; 2021, Group30</p>
     </footer>
