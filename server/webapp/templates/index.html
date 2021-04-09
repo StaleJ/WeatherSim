@@ -14,6 +14,7 @@
 </head>
 <body onload="javascript:whenload()">
 <div class="wrapper">
+    <div class="content">
     <header>
         <nav id="topMenu">
             <div class="navBox">
@@ -22,7 +23,7 @@
                 </h1>
                 <ul>
                     <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="http://127.0.0.1:5000/swagger-ui/">API</a></li>
+                    <li><a href="http://127.0.0.1:5000/swagger-ui/">API-Doc</a></li>
                     <li><a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">GitHub</a></li>
                 </ul>
             </div>
@@ -39,13 +40,13 @@
     <main>
         <section>
             <div class="location">
-                <div class="city"><p id="city">Bergen</p></div>
-                <div class="date"><p id="date">07 April 2021</p></div>
+                <div class="city"><p id="city"></p></div>
+                <div class="date"><p id="date"></p></div>
             </div>
         </section>
         <div class="current">
-            <div class="temp"><p id="temp">20</p></div>
-            <div class="rain"><p id="rain">0,5</p></div>
+            <div class="temp"><p id="temp"></p></div>
+            <div class="rain"><p id="rain"></p></div>
         </div>
         <section>
             <div>
@@ -56,7 +57,8 @@
             </div>
         </section>
     </main>
-    <footer>
+    </div>
+    <footer id="footer">
         <p>Made by INF142 <a href="https://github.com/StaleJ/Mandatory-assignment-1-INF142-group-30">Group 30!</a>.
             Copyrigth &copy; 2021, Group30</p>
     </footer>
@@ -73,7 +75,8 @@
 		'09':'September',
 		'10':'October',
 		'11':'November',
-		'12':'December'	}
+        '12': 'December'
+    };
     let city_select = document.getElementById('cities');
     let temp = document.getElementById('temp');
     let rain = document.getElementById('rain');
@@ -91,39 +94,41 @@
                     month = key.charAt(5).concat(key.charAt(6));
                     day = key.charAt(8).concat(key.charAt(9));
                     year = key.substr(0,4);
-                    temp.innerHTML = dato[key].Temperature + "℃";
-                    rain.innerHTML = dato[key].Rain + " mm"
-                    date.innerHTML = day + " " + dates[month] + " " + year
+                    temperature = parseInt(dato[key].Temperature);
+                    temp.innerHTML = temperature + "℃";
+                    rain.innerHTML = dato[key].Rain + " mm";
+                    date.innerHTML = day + " " + dates[month] + " " + year;
                 }
-                updateTempData(tChart)
-                updateRainData(rChart)
+                updateTempData(tChart);
+                updateRainData(rChart);
             });
         });
-    }
+    };
 
     function whenload() {
         selected_city = city_select.value;
-        updateRainData(rChart)
-        updateTempData(tChart)
+        updateRainData(rChart);
+        updateTempData(tChart);
 
         fetch('/' + selected_city + '/last').then(function (response) { //2021-04-09T00:07:16.638113
             response.json().then(function (data) {
                 dictKey = data[selected_city];
-                city.innerHTML = selected_city
+                city.innerHTML = selected_city;
                 for (var key in dictKey) {
                     month = key.charAt(5).concat(key.charAt(6));
                     day = key.charAt(8).concat(key.charAt(9));
                     year = key.substr(0,4);
-                    temp.innerHTML = dictKey[key].Temperature + "℃";
-                    rain.innerHTML = dictKey[key].Rain + " mm"
-                    date.innerHTML = day + " " + dates[month] + " " + year
+                    temperature = parseInt(dictKey[key].Temperature);
+                    temp.innerHTML = temperature + "℃";
+                    rain.innerHTML = dictKey[key].Rain + " mm";
+                    date.innerHTML = day + " " + dates[month] + " " + year;
                 }
             });
         });
     }
 
-    async function tempData() {
-        var tempList = []
+    async function getTemp() {
+        var tempList = [];
         let data = await fetch('/' + selected_city).then(response => response.json());
         if (data !== undefined) {
             for (var key in data) {
@@ -136,8 +141,8 @@
         return tempList;
     }
 
-    async function rainData() {
-        var rainList = []
+    async function getRain() {
+        var rainList = [];
         let data = await fetch('/' + selected_city).then(response => response.json());
         if (data !== undefined) {
             for (var key in data){
@@ -149,23 +154,26 @@
     }
 
     async function updateTempData(chart) {
-        tempDATA = await tempData()
-        timeDATA = await getTime()
+        selected_city = city_select.value;
+        tempDATA = await getTemp();
+        timeDATA = await getTime();
         chart.data.datasets[0].data = tempDATA.reverse();
         chart.data.labels = timeDATA;
+        chart.options.plugins.title.text = 'Temperature in ' + selected_city + ' the last 24 hours.';
         chart.update();
     }
 
     async function updateRainData(chart) {
-        rdata = await rainData();
+        rainDATA = await getRain();
         timeDATA = await getTime();
-        chart.data.datasets[0].data = rdata;
+        chart.data.datasets[0].data = rainDATA;
         chart.data.labels = timeDATA;
+        chart.options.plugins.title.text = 'Precipitation in ' + selected_city + ' the last 24 hours.';
         chart.update();
     }
 
     async function getTime(){
-        var timeList = []
+        var timeList = [];
         let data = await fetch('/' + selected_city).then(response => response.json());
         if (data !== undefined) {
             for (var key in data){
@@ -186,7 +194,7 @@
                 '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
                 '20', '21', '22', '23', '24'],
             datasets: [{
-                label: 'rain',
+                label: 'Precipitation',
                 data: [0.2, 0.1, 0.8, 0.1, 0.8, 0.9, 0.5, 0.4, 0.2, 0.3, 0.3, 0.8,
                     0.5, 0.6, 0.5, 0.8, 0.4, 0.6, 0.4, 0.7, 0.6, 0.6, 0.3, 0.5],
                 backgroundColor: [
@@ -205,9 +213,25 @@
                 },
                 title: {
                     display: true,
-                    text: 'Rain',
+                    text: 'Precipitation in ' + selected_city + ' the last 24 hours.',
                     color: 'gold'
                 },
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Hours'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'mm'
+                    }
+                }
             }
         }
     });
@@ -219,7 +243,7 @@
                 '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
                 '20', '21', '22', '23', '24'],
             datasets: [{
-                label: 'temp',
+                label: 'Temperature',
                 data: [10, 9, 8, 7, 7, 7, 8, 8, 9, 9, 10, 9, 11, 12, 13, 13, 13, 12, 12, 11, 10, 9, 10, 10],
                 fill: false,
                 borderColor: 'rgb(255, 99, 132)',
@@ -233,25 +257,25 @@
                 },
                 title: {
                     display: true,
-                    text: 'Temp',
+                    text: 'Temperature in ' + selected_city + ' the last 24 hours.',
                     color: 'gold'
                 },
             },
             scales: {
-                yAxes: [{
-                    type: 'time',
-                    scaleLabel: {
+                x: {
+                    display: true,
+                    title: {
                         display: true,
-                        labelString: 'Hours'
-                    },
-                }],
-                x: [{
-                    type: 'temp',
-                    scaleLabel: {
+                        text: 'Hours'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
                         display: true,
-                        labelString: '°C'
-                    },
-                }]
+                        text: '°C'
+                    }
+                }
             }
         }
     });
