@@ -54,6 +54,8 @@ If changes to the project are made you can redeploy with:
 ```sh
 $ docker-compose up -d --build --force-recreate && sudo docker attach user_client
 ```
+This will force Docker to use the newly edited files for the images that is run in the containers
+
 ### Manually
 For manually deploying you need to run these python scripts simultaneous in their specific folders:
 ```sh
@@ -63,7 +65,8 @@ $ python server.pu                       # /server
 $ python weather_station_data_sender.py  # /station
 $ python app.py                          # /server/webapp
 ```
-**NOTE:** We highly recommend you to use Docker instead of the manual approach.  
+**NOTE:** We highly recommend you to use Docker instead of the manual approach.
+This may not work without editing the python scripts to use the localhost hostname. By default, the hostname is as the name of the containers in the docker compose file
 # Usage
 We have three ways of interacting with the app, a shell `WeatherAppClient`, [Website](http://group30.codes), and [REST api](http://group30.codes/swagger-ui/).  
 
@@ -82,15 +85,17 @@ To receive all data since the simulation start, type:
 $ WAclient> get data all
 ```
 
-You can also use the flask app we made to view the data in a 
+You can also use the flask app we made to view the data in a browser
 
 ## About
 
 Data will be periodically generated from `station.py`. `weather_station_data_sender.py` then transmits
 the data by UDP to `server.py` which stores it to `data.json`. This data can then get read from `client_server.py` with TCP
-by the command line program `WeatherAppClient.py`.
+by the command line program `weather_app_client.py`. The flask webapp will be able to read the data from the `data.json` and 
+renders an index.html webpage with data from the last 24h in a graph and last readings in big bold letters. The webapp also has an REST API that allows for
+specific get request over HTTP. 
 
-
+## Illustrated model 
 <h4 align="center">
   <img alt="WeatherModel" src="img/model1.png">
 </h4>
@@ -104,18 +109,18 @@ Swagger UI allows visualizing and interact with the API's resources.
 
 ## Known bugs
 
-`data.json` will eventually get very big, limiting *the whole goddamn operation.*
+`data.json` will eventually get very big, limiting *the whole god-damn operation.*
 
 ---   
 
 ## Participants: 
 
 Students: \
-[`Ståle Jacobsen`](https://github.com/StaleJ) \
-[`Erlend Haugen`](https://github.com/HaugPixel) \
-[`Kim Andre Grønstøl`](https://github.com/KimAndreG) \
-[`Martin Eide`](https://github.com/mrtineide) \
-[`Henrik Eide`](https://github.com/HenrikEide) 
+[`Ståle Jacobsen`](https://github.com/StaleJ) the tech lead \
+[`Erlend Haugen`](https://github.com/HaugPixel) the bug killer\
+[`Kim Andre Grønstøl`](https://github.com/KimAndreG) the web maestro \
+[`Martin Eide`](https://github.com/mrtineide) the composer \
+[`Henrik Eide`](https://github.com/HenrikEide) the architect 
 
 TI's: \
 [`Lenanomous`](https://github.com/daq012) \
