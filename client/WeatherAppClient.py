@@ -1,8 +1,9 @@
 import socket
 import json
 import pretty_print
+import sys
 
-HOST = "server"
+HOST = "server" if len(sys.argv)>1 else "localhost"
 PORT = 5009
 ENTERPRISE_FRIENDLY_HELLO = "HELLO SERVER"
 

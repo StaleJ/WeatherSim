@@ -4,4 +4,4 @@ WORKDIR /client
 
 COPY . .
 
-CMD ["python", "WeatherAppClient.py"]
+CMD ["python", "WeatherAppClient.py", "d"]
