@@ -9,15 +9,19 @@ body{
   color: white;
 
   font-family: 'Share Tech Mono', monospace;
+    min-height: 100%;
 }
 
+
 footer{
-  position: fixed;
+    position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
   text-align: center;
+    height: 2.5rem;
   padding-bottom: 20px;
+    margin-top: -200px;
 }
 
 a{
@@ -75,6 +79,10 @@ main {
   font-size: 20px;
   font-weight: 300;
   transition: 0.2s ease-out;
+}
+
+.content {
+    padding-bottom: 2.5rem;
 }
 
 .city-select:focus{
@@ -145,6 +153,7 @@ main {
 #topMenu ul li a:hover{
   color: gold;
 }
+
 
 /* about page */
 
