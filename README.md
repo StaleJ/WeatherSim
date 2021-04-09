@@ -17,15 +17,14 @@ weather_station_data_sender.py  # Using UDP socket
 server.py                       # Using UDP socket 
 client_server.py                # Using TCP socket
 weather_app_client.py           # Using TCP socket
-
 ```
 
 The extra features:
-``
+```
 A beatiful website
 Flask REST api
 Docker
-``
+```
 # Installation
 
 ## Configuration
@@ -97,7 +96,7 @@ by the command line program `WeatherAppClient.py`.
 </h4>
 
 ## REST API Documentation
-We use REST API Documentation Tool | [Swagger UI](https://swagger.io/tools/swagger-ui/) for documentating of the REST api.
+We use REST API Documentation Tool | [Swagger UI](https://swagger.io/tools/swagger-ui/) for documenting of the REST API.
 Swagger UI allows visualizing and interact with the API's resources. 
 <h4 align="center">
   <img alt="RestApi" src="img/rest.png">
