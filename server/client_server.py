@@ -80,7 +80,9 @@ def get_place() -> str:
 def get_city_data(city) -> str:
     _data = get_json(DATABASE)
     if city in _data.keys():
-        return str(_data[city])
+        new_dict = dict()
+        new_dict[city] = _data[city]
+        return json.dumps(new_dict)
     else:
         return "Place not found"
 

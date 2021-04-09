@@ -1,5 +1,5 @@
 {
-  "help": "To read get requests descriptions type: help <request>",
+  "help": "View this help text",
   "close": "Close down server",
   "get data all": "Returns all data in database",
   "get data place": "Returns a list of places to choose data from",
