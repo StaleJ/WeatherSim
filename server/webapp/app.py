@@ -121,4 +121,4 @@ docs.register(LastCity)
 docs.register(All)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host="")
