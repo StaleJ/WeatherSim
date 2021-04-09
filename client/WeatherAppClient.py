@@ -2,7 +2,7 @@ import socket
 import json
 import pretty_print
 
-HOST = "127.0.0.1"
+HOST = "server"
 PORT = 5009
 ENTERPRISE_FRIENDLY_HELLO = "HELLO SERVER"
 
@@ -73,13 +73,17 @@ def get_help(request: str) -> None:
 
 
 if __name__ == '__main__':
+    print("Starting Web App Client...")
 
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock_address = (HOST, PORT)
         sock.connect(sock_address)
 
-        print("Press Enter to exit")
+        input()
+        print("### WeatherAPP 2.0 ###")
+        print("WebApp running on http://0.0.0.0:5000/")
+        print("Press 'help' for Commands | press Enter to exit ")
         while (command := input("WAclient> ")).lower():
             input_ = command.split()
             method = input_[0] + input_[1] if len(input_) > 1 else input_[0]

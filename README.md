@@ -37,6 +37,11 @@ To recieve all data since the simulation start, type:
 
     $ WAclient> get data all
 
+## Running with docker 
+
+Clone the repo and run this command in the project root:
+    
+    docker compose up --build --force-recreate
 
 ## About
 
@@ -53,6 +58,8 @@ by the command line program `WeatherAppClient.py`.
 ## Known bugs
 
 `data.json` will eventually get very big, limiting *the whole goddamn operation.*
+
+`docker_entrypoint.sh` may be changed by Git automatically to have a CLRF ending on Windows machine if this option is enabled in your local Git. When `docker_entrypoint.sh` has End of line sequence set as CLRF the `docker compose up` command will fail to launch the server, and you will get a error that may look like `standard_init_linux.go:219: exec user process caused: no such file or directory`. The fix is either no not use Windows EOL symbols or change just `docker_entrypoint.sh` EOL to have Unix-style EOL `LF`.
 
 ---   
 
