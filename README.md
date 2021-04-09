@@ -111,6 +111,8 @@ Swagger UI allows visualizing and interact with the API's resources.
 
 `data.json` will eventually get very big, limiting *the whole god-damn operation.*
 
+`docker_entrypoint.sh` may be changed by Git automatically to have a CLRF ending on Windows machine if this option is enabled in your local Git. When `docker_entrypoint.sh` has End of line sequence set as CLRF the `docker compose up` command will fail to launch the server, and you will get a error that may look like `standard_init_linux.go:219: exec user process caused: no such file or directory`. The fix is either no not use Windows EOL symbols or change just `docker_entrypoint.sh` EOL to have Unix-style EOL `LF`.
+
 ---   
 
 ## Participants: 

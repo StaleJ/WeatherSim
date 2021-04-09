@@ -1,10 +1,14 @@
 from socket import socket, AF_INET, SOCK_DGRAM
 import json
 
+ADDRESS = ""
+PORT = 50008
+VERSION = 1.1
 
-def create_socket(address, port):
+
+def create_socket():
     sock = socket(AF_INET, SOCK_DGRAM)
-    sock.bind((address, port))
+    sock.bind((ADDRESS, PORT))
     return sock
 
 
@@ -15,7 +19,7 @@ def receive(sock):
 
 def saveToJson(jsondata: dict):
     # Read data.json and convert to dict
-    a_file = open("./server/data.json", "r")
+    a_file = open("data.json", "r")
     json_object = json.load(a_file)
     a_file.close()
     
@@ -23,23 +27,21 @@ def saveToJson(jsondata: dict):
     city = list(jsondata.keys()).pop()
     dict1 = json_object.get(city, {})
     dict2 = jsondata.get(city)
-    dict1.update(dict2)
-    json_object[city] = dict1
+    dict2.update(dict1)
+    json_object[city] = dict2
     
     # Dumps file
-    a_file = open("./server/data.json", "w")
+    a_file = open("data.json", "w")
     json.dump(json_object, a_file)
 
     a_file.close()
 
 
 def main():
-    address = "localhost"
-    port = 50008
-
-    sock = create_socket(address, port)
+    sock = create_socket()
     count = 0
 
+    print(f"Server {VERSION} is listening")
     while True:
         msg = receive(sock)
         jsonfile = json.loads(msg)
