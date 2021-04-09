@@ -1,10 +1,11 @@
 import socket
 import json
+import pretty_print
 
 ADDRESS = "127.0.0.1"
 PORT = 5009
-DATABASE = "data.json"
-HELP = "requests.json"
+DATABASE = "./server/data.json"
+HELP = "./server/requests.json"
 ENTERPRISE_FRIENDLY_HELLO = f"HELLO {ADDRESS} SERVER"
 
 
@@ -20,7 +21,7 @@ def send_file_size_to_client(buffer_size: int):
 def response(request: str) -> None:
     # Step two
     if request == "getall":
-        all_data = read_data(DATABASE)
+        all_data = pretty_print.format1(get_json(DATABASE))
         send_file_size_to_client(len(all_data))
         conn.sendall(all_data.encode())
     elif request == "help":
@@ -79,7 +80,7 @@ def get_place() -> str:
 def get_city_data(city) -> str:
     _data = get_json(DATABASE)
     if city in _data.keys():
-        return str(_data[city])
+        return pretty_print.format1(_data[city])
     else:
         return "Place not found"
 
