@@ -1,6 +1,5 @@
 import socket
 import json
-import pretty_print
 
 ADDRESS = "127.0.0.1"
 PORT = 5009
