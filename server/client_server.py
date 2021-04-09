@@ -6,7 +6,7 @@ ADDRESS = "127.0.0.1"
 PORT = 5009
 DATABASE = "./server/data.json"
 HELP = "./server/requests.json"
-ENTERPRISE_FRIENDLY_HELLO = f"HELLO {ADDRESS} SERVER"
+ENTERPRISE_FRIENDLY_HELLO = "HELLO SERVER"
 
 
 def send_file_size_to_client(buffer_size: int):

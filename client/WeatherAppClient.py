@@ -4,7 +4,7 @@ from io import StringIO
 
 HOST = "127.0.0.1"
 PORT = 5009
-ENTERPRISE_FRIENDLY_HELLO = f"HELLO {HOST} SERVER"
+ENTERPRISE_FRIENDLY_HELLO = "HELLO SERVER"
 
 
 def request_to_server(request: str) -> str:
