@@ -1,6 +1,6 @@
 import socket
 import json
-from io import StringIO
+import pretty_print
 
 HOST = "127.0.0.1"
 PORT = 5009
@@ -21,8 +21,7 @@ def request_to_server(request: str) -> str:
 
 def get_json(request: str) -> dict:
     _data = json.loads(request_to_server(request))
-    _io = StringIO(_data)
-    _dict = json.load(_io)
+    _dict = json.loads(_data)
     return _dict
 
 
@@ -34,7 +33,7 @@ def close_socket(request: str) -> None:
 
 def get_all_data() -> None:
     all_data = get_json("getall")  # loads converts str -> dict
-    print(all_data)
+    print(pretty_print.format1(all_data))
 
 
 def get_places() -> None:
@@ -45,7 +44,7 @@ def get_places() -> None:
     while p := input("places> ").capitalize():
         if p in places:
             data = request_to_server(f"getcity;{p}")  # eks get;bergen
-            print(data)
+            print(pretty_print.format1(json.loads(data)))
         else:
             print(f"{p} is not available")
 
