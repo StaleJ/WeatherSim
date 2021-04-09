@@ -9,7 +9,23 @@ server in which for you to retrieve data from. Our main goal is to
  demonstrate basic socket programming with **UDP** and **TCP**.
 
 ---
+# Where to find the files for the assignment 
 
+For the MVP: 
+```
+weather_station_data_sender.py  # Using UDP socket 
+server.py                       # Using UDP socket 
+client_server.py                # Using TCP socket
+weather_app_client.py           # Using TCP socket
+
+```
+
+The extra features:
+``
+A beatiful website
+Flask REST api
+Docker
+``
 # Installation
 
 ## Configuration
@@ -23,7 +39,7 @@ $ pip3 install -r requirements.txt
 ```
 ## Production
 ### Automatically with Docker
-For a very quick and easy deploy of your app we recommend hosting the app in a Docker container and running that.
+For a very quick and easy deploy of your app we recommend hosting the app as a Docker multi-container and running that.
 It is fairly straight forward:
 ```sh
 $ sudo docker-compose up -d && sudo docker attach user_client
@@ -50,7 +66,7 @@ $ python app.py                          # /server/webapp
 ```
 **NOTE:** We highly recommend you to use Docker instead of the manual approach.  
 # Usage
-We have three ways of interacting with the app, a shell `WeatherAppClient`, [Website](group30.codes), and [REST api](group30.codes/swagger-ui/).  
+We have three ways of interacting with the app, a shell `WeatherAppClient`, [Website](http://group30.codes), and [REST api](http://group30.codes/swagger-ui/).  
 
 
 ## How to use the shell/CLI
@@ -62,7 +78,7 @@ To see possible commands, type:
 $ WAclient> help
 ```
 
-To recieve all data since the simulation start, type:
+To receive all data since the simulation start, type:
 ```zsh
 $ WAclient> get data all
 ```
@@ -71,7 +87,7 @@ You can also use the flask app we made to view the data in a
 
 ## About
 
-Data will be periodically genereated from `station.py`. `weather_station_data_sender.py` then transmits
+Data will be periodically generated from `station.py`. `weather_station_data_sender.py` then transmits
 the data by UDP to `server.py` which stores it to `data.json`. This data can then get read from `client_server.py` with TCP
 by the command line program `WeatherAppClient.py`.
 
@@ -80,6 +96,12 @@ by the command line program `WeatherAppClient.py`.
   <img alt="WeatherModel" src="img/model1.png">
 </h4>
 
+## REST API Documentation
+We use REST API Documentation Tool | [Swagger UI](https://swagger.io/tools/swagger-ui/) for documentating of the REST api.
+Swagger UI allows visualizing and interact with the API's resources. 
+<h4 align="center">
+  <img alt="RestApi" src="img/rest.png">
+</h4>
 
 ## Known bugs
 
