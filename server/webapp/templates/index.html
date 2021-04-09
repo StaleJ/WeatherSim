@@ -152,10 +152,12 @@
     }
 
     async function updateTempData(chart) {
+        selected_city = city_select.value;
         tempDATA = await getTemp();
         timeDATA = await getTime();
         chart.data.datasets[0].data = tempDATA.reverse();
         chart.data.labels = timeDATA;
+        chart.options.plugins.title.text = 'Temperature in ' + selected_city + ' the last 24 hours.';
         chart.update();
     }
 
@@ -164,6 +166,7 @@
         timeDATA = await getTime();
         chart.data.datasets[0].data = rainDATA;
         chart.data.labels = timeDATA;
+        chart.options.plugins.title.text = 'Precipitation in ' + selected_city + ' the last 24 hours.';
         chart.update();
     }
 
