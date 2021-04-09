@@ -59,14 +59,14 @@ This will force Docker to use the newly edited files for the images that is run 
 ### Manually
 For manually deploying you need to run these python scripts simultaneous in their specific folders:
 ```sh
-$ python weather_app_client.py           # /client
 $ python client_server.py                # /server
 $ python server.pu                       # /server
 $ python weather_station_data_sender.py  # /station
 $ python app.py                          # /server/webapp
+$ python weather_app_client.py           # /client
+
 ```
 **NOTE:** We highly recommend you to use Docker instead of the manual approach.
-This may not work without editing the python scripts to use the localhost hostname. By default, the hostname is as the name of the containers in the docker compose file
 # Usage
 We have three ways of interacting with the app, a shell `WeatherAppClient`, [Website](http://group30.codes), and [REST api](http://group30.codes/swagger-ui/).  
 
