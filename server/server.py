@@ -1,10 +1,13 @@
 from socket import socket, AF_INET, SOCK_DGRAM
 import json
 
+ADDRESS = ""
+PORT = 50008
 
-def create_socket(address, port):
+
+def create_socket():
     sock = socket(AF_INET, SOCK_DGRAM)
-    sock.bind((address, port))
+    sock.bind((ADDRESS, PORT))
     return sock
 
 
@@ -34,19 +37,16 @@ def saveToJson(jsondata: dict):
 
 
 def main():
-    address = ""
-    port = 50008
-
-    sock = create_socket(address, port)
+    sock = create_socket()
     count = 0
 
-    print("Server is listening")
+    print("Server V1.0 is listening")
     while True:
         msg = receive(sock)
         jsonfile = json.loads(msg)
         saveToJson(jsonfile)
         count += 1
-        print(str(count))
+        print(count)
 
 
 if __name__ == '__main__':
