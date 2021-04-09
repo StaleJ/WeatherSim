@@ -19,7 +19,7 @@ def receive(sock):
 
 def saveToJson(jsondata: dict):
     # Read data.json and convert to dict
-    a_file = open("./server/data.json", "r")
+    a_file = open("data.json", "r")
     json_object = json.load(a_file)
     a_file.close()
     
@@ -31,7 +31,7 @@ def saveToJson(jsondata: dict):
     json_object[city] = dict2
     
     # Dumps file
-    a_file = open("./server/data.json", "w")
+    a_file = open("data.json", "w")
     json.dump(json_object, a_file)
 
     a_file.close()
