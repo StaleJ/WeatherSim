@@ -1,6 +1,5 @@
 import socket
 import json
-import pretty_print
 
 ADDRESS = "127.0.0.1"
 PORT = 5009
@@ -21,7 +20,7 @@ def send_file_size_to_client(buffer_size: int):
 def response(request: str) -> None:
     # Step two
     if request == "getall":
-        all_data = pretty_print.format1(get_json(DATABASE))
+        all_data = read_data(DATABASE)
         send_file_size_to_client(len(all_data))
         conn.sendall(all_data.encode())
     elif request == "help":
@@ -80,7 +79,7 @@ def get_place() -> str:
 def get_city_data(city) -> str:
     _data = get_json(DATABASE)
     if city in _data.keys():
-        return pretty_print.format1(_data[city])
+        return str(_data[city])
     else:
         return "Place not found"
 
