@@ -125,8 +125,10 @@ Students: \
 [`Henrik Eide`](https://github.com/HenrikEide) the architect 
 
 TI's: \
-[`Lenanomous`](https://github.com/daq012) \
+🇷🇸[`Lenanomous`](https://github.com/daq012) \
 [`Sedrick Varnes`](https://github.com/sedrickvarnes)
+
+
 
 
 ### CopyRight
