@@ -25,6 +25,6 @@ services:
     container_name: user_client
     stdin_open: true # docker run -i
     tty: true        # docker run -t
-    command: python ./WeatherAppClient.py d
+    command: python ./weather_app_client.py d
     depends_on:
       - server

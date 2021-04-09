@@ -52,7 +52,7 @@ Press 'help' for Commands | press Enter to exit
 
 If changes to the project are made you can redeploy with:
 ```sh
-$ docker-compose up -d --build --force-recreate && sudo docker attach user_client
+$ sudo docker-compose up -d --build --force-recreate && sudo docker attach user_client
 ```
 This will force Docker to use the newly edited files for the images that is run in the containers
 
