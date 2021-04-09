@@ -146,3 +146,22 @@ main {
   color: gold;
 }
 
+/* about page */
+
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px, 15px, 15px;
+}
+
+.about h2 {
+  color: white;
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.about p {
+  font-size: 16px;
+}
