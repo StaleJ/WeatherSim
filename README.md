@@ -12,31 +12,29 @@ server in which for you to retrieve data from. Our main goal is to
 
 ## Usage
 
-With [Python 3.8+](https://Python.org/) installed with numpy
+With [Python 3.8+](https://Python.org/) 
 
-To install numpy use
-    $ python -m pip install numpy
-
-Then run from project root:
-
-    $ python server/server.py
-    $ python server/weather_station_data_sender.py
-    $ python server/client_server.py
-    $ python client/WeatherAppClient.py
-
+To install requirements/dependencies:
+```zsh
+$ pip install -r requirements.txt
+```
+Then run project:
+```zsh
+$ docker-compose up -d && docker attach user_client
+```
 
 The`WeatherAppClient` is a command line program. \
 You can use it to view the weather data that has been generated
 
 To see possible commands, type:
-
-    $ WAclient> help
-
+```zsh
+$ WAclient> help
+```
 
 To recieve all data since the simulation start, type:
-
-    $ WAclient> get data all
-
+```zsh
+$ WAclient> get data all
+```
 
 ## About
 
