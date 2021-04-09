@@ -6,6 +6,7 @@ PORT = 5009
 DATABASE = "data.json"
 HELP = "requests.json"
 ENTERPRISE_FRIENDLY_HELLO = "HELLO SERVER"
+VERSION = 1.1
 
 
 def send_file_size_to_client(buffer_size: int):
@@ -110,7 +111,7 @@ if __name__ == '__main__':
     sock.bind((ADDRESS, PORT))
     sock.listen()
 
-    print("Client-server V1.0  is listening")
+    print(f"Client-server {VERSION} is listening")
     while True:
         conn, _ = sock.accept()
         while request_message := conn.recv(1024).decode():

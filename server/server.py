@@ -3,6 +3,7 @@ import json
 
 ADDRESS = ""
 PORT = 50008
+VERSION = 1.1
 
 
 def create_socket():
@@ -40,7 +41,7 @@ def main():
     sock = create_socket()
     count = 0
 
-    print("Server V1.0 is listening")
+    print(f"Server {VERSION} is listening")
     while True:
         msg = receive(sock)
         jsonfile = json.loads(msg)

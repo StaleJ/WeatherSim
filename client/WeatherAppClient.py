@@ -81,11 +81,9 @@ if __name__ == '__main__':
         sock_address = (HOST, PORT)
         sock.connect(sock_address)
 
-        print("Tell me")
-        print("who let the dogs out")
-        x = input()
-        print(x)
-        print("Press Enter to exit")
+        input()
+        print("### WeatherAPP ###")
+        print("Press 'help' for Commands | press Enter to exit ")
         while (command := input("WAclient> ")).lower():
             input_ = command.split()
             method = input_[0] + input_[1] if len(input_) > 1 else input_[0]

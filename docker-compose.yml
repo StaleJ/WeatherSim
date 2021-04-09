@@ -8,27 +8,22 @@ services:
     command: ./docker_entrypoint.sh # Eller så kan vi ta den .sh filen
     ports:
       - 50008:50008/udp # Station port
-      # - 5009:5009 # Client port
-
-
+      - 5009:5009 # Client port
 
   weather_station:
 
     build: ./station
     command: python ./weather_station_data_sender.py
-    ports:
-      - 8080:8080
     depends_on:
       - server
     environment:
       - PYTHONUNBUFFERED=1
 
- #client:
- #  build: /client  # Where to find the docker file
- #  stdin_open: true # docker run -i
- #  tty: true        # docker run -t
- #  command: python ./WeatherAppClient.py
- #  ports:
- #    - 8080:8080
- #  depends_on:
- #    - server
+  client:
+    build: ./client  # Where to find the docker file
+    container_name: user_client
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    command: python ./WeatherAppClient.py
+    depends_on:
+      - server
