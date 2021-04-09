@@ -12,16 +12,22 @@ def request_to_server(request: str) -> str:
     # Send first request to database server
     sock.sendall(request.encode())
     # Receive the size of the file from database
-    size_of_file = int(sock.recv(512).decode())
+    size_of_file = int(sock.recv(4096).decode())
     # Send ok message back, server expects it.
     sock.sendall(ENTERPRISE_FRIENDLY_HELLO.encode())
     # Receive the file from database over the network with the given size
     resp = sock.recv(size_of_file)
+    
+    # recv data until all the data is recv
+    while(len(resp) < size_of_file):
+        resp += sock.recv(size_of_file)
+    
     return resp.decode()
 
 
 def get_json(request: str) -> dict:
-    _data = json.loads(request_to_server(request))
+    from_server = request_to_server(request)
+    _data = json.loads(from_server)
     _dict = json.loads(_data)
     return _dict
 

@@ -11,7 +11,7 @@ VERSION = 1.1
 
 def send_file_size_to_client(buffer_size: int):
     conn.sendall(str(buffer_size).encode())
-    ENTERPRISE_FRIENDLY_REPLY_FROM_CLIENT = conn.recv(512).decode()
+    ENTERPRISE_FRIENDLY_REPLY_FROM_CLIENT = conn.recv(4096).decode()
     if ENTERPRISE_FRIENDLY_REPLY_FROM_CLIENT == ENTERPRISE_FRIENDLY_HELLO:
         return
     else:
@@ -109,7 +109,7 @@ def get_temp() -> str:
 
 if __name__ == '__main__':
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # Sets TCP timeout to 1 sec
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 30)  # Sets TCP timeout to 1 sec
     sock.bind((ADDRESS, PORT))
     sock.listen()
 
