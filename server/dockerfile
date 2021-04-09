@@ -11,5 +11,3 @@ COPY . .
 RUN chmod a+x docker_entrypoint.sh
 
 ENTRYPOINT [ "./docker_entrypoint.sh" ]
-
-# CMD ["python","-u","server.py"]

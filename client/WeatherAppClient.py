@@ -81,7 +81,8 @@ if __name__ == '__main__':
         sock.connect(sock_address)
 
         input()
-        print("### WeatherAPP ###")
+        print("### WeatherAPP 2.0 ###")
+        print("WebApp running on http://0.0.0.0:5000/")
         print("Press 'help' for Commands | press Enter to exit ")
         while (command := input("WAclient> ")).lower():
             input_ = command.split()

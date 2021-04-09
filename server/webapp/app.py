@@ -9,7 +9,7 @@ from flask_apispec.views import MethodResource
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
-DATA = "../data.json"
+DATA = "./data.json"
 api = Api(app)
 app.config.update({'APISPEC_SPEC': APISpec(
     title="Group30's WeatherAPP",
@@ -121,4 +121,4 @@ docs.register(LastCity)
 docs.register(All)
 
 if __name__ == '__main__':
-    app.run(debug=True,host="")
+    app.run(debug=True, host='0.0.0.0')
