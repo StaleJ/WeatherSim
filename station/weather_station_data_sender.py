@@ -29,27 +29,28 @@ simulator.turn_on()
 print("Sim turned on")
 
 count = 0
-for i in range(100):  # 100 here is arbitrary, its just to make it not go forever
-    count += 1
-    sleep(sim_int)
-    iso_date = datetime.now() + timedelta(hours=i)
-    # Get the data from station/simulation
-    data = {str(simulator.location): {
-        iso_date.isoformat(): {
-            "Rain": simulator.rain,
-            "Temperature": simulator.temperature
+for by in ["Stavanger","Bergen","Oslo"]:
+    for i in range(50):  # 100 here is arbitrary, its just to make it not go forever
+        count += 1
+        sleep(sim_int)
+        iso_date = datetime.now() + timedelta(hours=i)
+        # Get the data from station/simulation
+        data = {str(by): {
+            iso_date.isoformat(): {
+                "Rain": simulator.rain,
+                "Temperature": simulator.temperature
+            }
         }
-    }
-    }
+        }
 
-    # Convert to JSON/str we can use json.loads(receivedData.decode()) to decode it
-    dataToSend = json.dumps(data)
+        # Convert to JSON/str we can use json.loads(receivedData.decode()) to decode it
+        dataToSend = json.dumps(data)
 
-    try:
-        s.sendto(str(dataToSend).encode(), (HOST, PORT))
-        print("Sent to socket this: ", dataToSend)  # Debug print
-    except socket.error as e:
-        print("Could not send data: ", e)
+        try:
+            s.sendto(str(dataToSend).encode(), (HOST, PORT))
+            print("Sent to socket this: ", dataToSend)  # Debug print
+        except socket.error as e:
+            print("Could not send data: ", e)
 
 simulator.shut_down()
 print("Stopped simulation now...")
